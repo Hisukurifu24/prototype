@@ -1,0 +1,23 @@
+<div>
+	<img [src]="imageUrl()" alt="Product Image" class="product-image">
+</div>
+<div>
+	<h2>
+		{{product().name}}
+	</h2>
+	<h3>
+		{{product().price | currency:'EUR'}}
+	</h3>
+	<h4>
+		{{product().brand}}
+	</h4>
+	<p>
+		{{product().description}}
+	</p>
+	<button (click)="addToCart(product())">Add to cart</button>
+	<div>
+		<p>Admin commands</p>
+		<button (click)="editProduct(product())">Edit</button>
+		<button class="delete" (click)="deleteProduct(product())">Delete</button>
+	</div>
+</div>

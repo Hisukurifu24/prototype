@@ -1,0 +1,17 @@
+<h1>
+	@if (key()) {
+	Results for: {{ key() }}
+	} @else {
+	All Products
+	}
+	<button (click)="addProduct()">Add Product</button>
+</h1>
+<ul class="product-list">
+	@for (p of products(); track p.id) {
+	<li class="product-item">
+		<a [routerLink]="['/product', p.id]" class="product-link">
+			{{ p.name }} - {{ p.price | currency: 'EUR' }}
+		</a>
+	</li>
+	}
+</ul>

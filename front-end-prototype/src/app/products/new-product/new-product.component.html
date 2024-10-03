@@ -1,0 +1,81 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit($event)">
+	<div>
+		<label for="name">Product Name:</label>
+		<input type="text" id="name" formControlName="name" required>
+		@if (productForm.get("name")?.invalid && productForm.get('name')?.touched) {
+		<div>
+			<small class="error">Product Name is required</small>
+		</div>
+		}
+	</div>
+	<div>
+		<label for="description">Description:</label>
+		<textarea id="description" formControlName="description" required maxlength="500" rows="4" cols="30"></textarea>
+		@if (productForm.get("description")?.invalid && productForm.get('description')?.touched) {
+		<div>
+			<small class="error">Description is required</small>
+		</div>
+		}
+	</div>
+	<div>
+		<label for="brand">Brand:</label>
+		<input type="text" id="brand" formControlName="brand" required>
+		@if (productForm.get("brand")?.invalid && productForm.get('brand')?.touched) {
+		<div>
+			<small class="error">Brand is required</small>
+		</div>
+		}
+	</div>
+	<div>
+		<label for="price">Price (€):</label>
+		<input type="number" id="price" min="0" formControlName="price" step="0.01" required>
+		@if (productForm.get("price")?.invalid && productForm.get('price')?.touched) {
+		<div>
+			<small class="error">Price is required</small>
+		</div>
+		}
+	</div>
+	<div>
+		<label for="category">Category:</label>
+		<input type="text" id="category" formControlName="category" required>
+		@if (productForm.get("category")?.invalid && productForm.get('category')?.touched) {
+		<div>
+			<small class="error">Category is required</small>
+		</div>
+		}
+	</div>
+	<div>
+		<label for="releaseDate">Release Date:</label>
+		<input type="date" id="releaseDate" formControlName="releaseDate" required>
+		@if (productForm.get("releaseDate")?.invalid && productForm.get('releaseDate')?.touched) {
+		<div>
+			<small class="error">Release Date is required</small>
+		</div>
+		}
+	</div>
+	<div>
+		<label for="isAvailable">Available:</label>
+		<input type="checkbox" id="isAvailable" formControlName="isAvailable">
+	</div>
+	<div>
+		<label for="unitsInStock">Units in Stock:</label>
+		<input type="number" id="unitsInStock" min="0" formControlName="unitsInStock" required>
+		@if (productForm.get("unitsInStock")?.invalid && productForm.get('unitsInStock')?.touched) {
+		<div>
+			<small class="error">Units in Stock is required</small>
+		</div>
+		}
+	</div>
+	<div>
+		<label for="imageData">Image:</label>
+		<input type="file" accept="image/*" id="imageData" (change)="onFileChange($event)">
+		@if (productForm.get("imageData")?.invalid) {
+		<div>
+			<small class="error">Image is required</small>
+		</div>
+		}
+	</div>
+	<div>
+		<button type="submit" [disabled]="productForm.invalid">Submit</button>
+	</div>
+</form>
