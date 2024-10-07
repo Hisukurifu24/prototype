@@ -4,9 +4,15 @@
 			<img src="favicon.ico" alt="A todo list" />
 		</a>
 		<div>
-			<h1>E-commerce website</h1>
-			<p>We sell things</p>
+			<h1>e-Com in Telegram</h1>
 		</div>
 	</div>
-	<app-search />
+	<div class="search-container">
+		<app-search />
+	</div>
+	<div class="cart-preview">
+		<a routerLink="/cart">
+			<app-cart-preview />
+		</a>
+	</div>
 </header>

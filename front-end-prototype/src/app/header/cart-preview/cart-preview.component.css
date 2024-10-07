@@ -1,0 +1,41 @@
+ img {
+ 	width: 24px;
+ 	/* Adjust the size of the cart icon */
+ 	height: 24px;
+ 	margin-right: 10px;
+ 	/* Space between the icon and the text */
+ }
+
+ p {
+ 	margin: 0;
+ 	font-size: 14px;
+ 	color: #333;
+ }
+
+ .item-count {
+ 	background-color: #ff6f61;
+ 	/* Background color for the item count */
+ 	color: #fff;
+ 	/* Text color for the item count */
+ 	padding: 2px 8px;
+ 	/* Padding for the item count */
+ 	border-radius: 12px;
+ 	/* Rounded corners for the item count */
+ 	font-size: 14px;
+ 	/* Font size for the item count */
+ 	font-weight: bold;
+ 	/* Font weight for the item count */
+ 	margin-left: 5px;
+ 	/* Space between the text and the item count */
+ }
+
+ .total-amount {
+ 	font-size: 14px;
+ 	/* Font size for the total amount */
+ 	font-weight: bold;
+ 	/* Font weight for the total amount */
+ 	color: #333;
+ 	/* Text color for the total amount */
+ 	margin-top: 5px;
+ 	/* Space between the item count and the total amount */
+ }

@@ -1,0 +1,33 @@
+<div class="cart-page">
+	<h1>Shopping Cart</h1>
+
+	<table class="cart-items">
+		<thead>
+			<tr>
+				<th>Item Name</th>
+				<th>Quantity</th>
+				<th>Price</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (item of items(); track item.product.id) {
+			<tr class="cart-item">
+				<td>{{item.product.name}}</td>
+				<td>
+					<input type="number" [value]="item.quantity" min="1" (click)="onValueChange($event, item)">
+				</td>
+				<td>{{itemTotal(item) | currency:"EUR"}}</td>
+				<td>
+					<button (click)="removeItem(item)">Remove</button>
+				</td>
+			</tr>
+			}
+		</tbody>
+	</table>
+
+	<div class="cart-summary">
+		<h2>Total: <span id="total-price"> {{total() | currency:"EUR"}} </span></h2>
+		<button routerLink="/checkout">Checkout</button>
+	</div>
+</div>

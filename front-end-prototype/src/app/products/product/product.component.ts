@@ -4,6 +4,7 @@ import { CurrencyPipe } from '@angular/common';
 import { ProductsService } from '../products.service';
 import { DomSanitizer, SafeUrl, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { CartService } from '../../cart/cart.service';
 
 @Component({
   selector: 'app-product',
@@ -22,10 +23,10 @@ export class ProductComponent {
     description: '',
     price: 0,
     releaseDate: '',
-    isAvailable: false,
-    unitsInStock: 0
+    available: false,
+    unitsInStock: 0,
+    imageUrl: ''
   });
-  imageUrl = signal<SafeUrl>("");
 
   delete = output();
 
@@ -33,6 +34,7 @@ export class ProductComponent {
   private title = inject(Title);
   private service = inject(ProductsService);
   private sanitizer = inject(DomSanitizer);
+  private cartService = inject(CartService);
 
   ngOnInit(): void {
     this.getProduct();
@@ -56,7 +58,7 @@ export class ProductComponent {
     this.service.getImage(this.id()).subscribe({
       next: (imageBlob) => {
         const objectURL = URL.createObjectURL(imageBlob);
-        this.imageUrl.set(this.sanitizer.bypassSecurityTrustUrl(objectURL));
+        this.product().imageUrl = (this.sanitizer.bypassSecurityTrustUrl(objectURL));
       }
     });
   }
@@ -70,6 +72,7 @@ export class ProductComponent {
         next: () => {
           console.log('Product deleted: ', p);
           this.delete.emit();
+          this.router.navigate(['/']);
         },
         error: (err) => {
           console.error('Error deleting product: ', err);
@@ -82,6 +85,6 @@ export class ProductComponent {
     this.router.navigate(['/edit', p.id]);
   }
   addToCart(p: Product) {
-    console.log('Product added to cart: ', p);
+    this.cartService.addItem(p);
   }
 }

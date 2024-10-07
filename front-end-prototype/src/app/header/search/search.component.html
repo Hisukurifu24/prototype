@@ -1,8 +1,7 @@
-<div class="search-container">
-	<input type="search" class="search-input" placeholder="Search..." [(ngModel)]="searchQuery" (search)="onSearch()"
-		(ngModelChange)="onSearchType()" />
-	<button type="submit" class="search-button" (click)="onSearch()">Search</button>
-</div>
+<input type="search" class="search-input" placeholder="Search..." [(ngModel)]="searchQuery" (search)="onSearch()"
+	(ngModelChange)="onSearchType()" />
+<button type="submit" class="search-button" (click)="onSearch()">Search</button>
+
 @if (searchResults().length > 0) {
 <div class="search-results">
 	<ul>

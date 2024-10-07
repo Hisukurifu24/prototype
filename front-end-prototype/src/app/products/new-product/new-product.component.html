@@ -54,8 +54,8 @@
 		}
 	</div>
 	<div>
-		<label for="isAvailable">Available:</label>
-		<input type="checkbox" id="isAvailable" formControlName="isAvailable">
+		<label for="available">Available:</label>
+		<input type="checkbox" id="available" formControlName="available">
 	</div>
 	<div>
 		<label for="unitsInStock">Units in Stock:</label>
@@ -67,6 +67,9 @@
 		}
 	</div>
 	<div>
+		@if (imageUrl() !== '') {
+		<img class="small-img" [src]="imageUrl()" alt="product image">
+		}
 		<label for="imageData">Image:</label>
 		<input type="file" accept="image/*" id="imageData" (change)="onFileChange($event)">
 		@if (productForm.get("imageData")?.invalid) {

@@ -55,3 +55,18 @@ button {
 button:hover {
 	background-color: #0056b3;
 }
+
+
+/* Disabled button */
+button:disabled {
+	background-color: #cccccc;
+	color: #666666;
+	cursor: not-allowed;
+}
+
+.small-img {
+	max-width: 150px;
+	max-height: 150px;
+	display: block;
+	margin-top: 10px;
+}

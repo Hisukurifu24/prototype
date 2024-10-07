@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { ProductsService } from '../products.service';
 import { Product } from '../product.model';
 import { Router } from '@angular/router';
+import { SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-new-product',
@@ -24,28 +25,45 @@ export class NewProductComponent implements OnInit {
     category: new FormControl('Smartphones', Validators.required),
     description: new FormControl('The most powerful iPhone ever', Validators.required),
     price: new FormControl('2000', Validators.required),
-    releaseDate: new FormControl('20-02-2024', Validators.required),
-    isAvailable: new FormControl(true, Validators.required),
+    releaseDate: new FormControl('2024-02-20', Validators.required),
+    available: new FormControl(true, Validators.required),
     unitsInStock: new FormControl('100', Validators.required),
     imageData: new FormControl(null, Validators.required)
   });
+  imageUrl = signal<SafeUrl>('');
+
 
   ngOnInit(): void {
-    console.log(this.id());
     this.isUpdate.set(this.id() > 0);
     if (this.isUpdate()) {
       this.service.getProduct(this.id()).subscribe({
         next: (p) => {
+          console.log(p);
+          // Convert releaseDate from dd-MM-yyyy to yyyy-MM-dd
+          const [day, month, year] = p.releaseDate.split('-');
+          const formattedDate = `${year}-${month}-${day}`;
+
           this.productForm.patchValue({
             name: p.name,
             brand: p.brand,
             category: p.category,
             description: p.description,
             price: p.price,
-            releaseDate: p.releaseDate,
-            isAvailable: p.isAvailable,
-            unitsInStock: p.unitsInStock
+            releaseDate: formattedDate,
+            available: p.available,
+            unitsInStock: p.unitsInStock,
           });
+        }
+      });
+      this.service.getImage(this.id()).subscribe({
+        next: (imageBlob) => {
+          const objectURL = URL.createObjectURL(imageBlob);
+          this.imageUrl.set(objectURL);
+          // if (this.imageUrl() !== null) {
+          //   this.productForm.patchValue({
+          //     imageData: objectURL
+          //   });
+          // }
         }
       });
     }
@@ -63,12 +81,16 @@ export class NewProductComponent implements OnInit {
       description: this.productForm.get('description')?.value,
       price: this.productForm.get('price')?.value,
       releaseDate: this.productForm.get('releaseDate')?.value,
-      isAvailable: this.productForm.get('isAvailable')?.value,
-      unitsInStock: this.productForm.get('unitsInStock')?.value
+      available: this.productForm.get('available')?.value,
+      unitsInStock: this.productForm.get('unitsInStock')?.value,
+      imageUrl: this.productForm.get('imageUrl')?.value
     };
+
     const image = this.productForm.get('imageData')?.value;
 
-    console.log(p);
+    // Convert releaseDate from yyyy-MM-dd to dd-MM-yyyy
+    p.releaseDate = p.releaseDate.split('-').reverse().join('-');
+
 
 
     if (this.productForm.valid) {

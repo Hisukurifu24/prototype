@@ -2,9 +2,8 @@ header {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 10px 20px;
-	background-color: #f8f9fa;
-	border-bottom: 1px solid #e0e0e0;
+	padding: 10px;
+	background-color: #f8f8f8;
 }
 
 .left-container {
@@ -12,13 +11,40 @@ header {
 	align-items: center;
 }
 
-.left-container a img {
-	height: 40px;
+.left-container img {
 	margin-right: 10px;
-	/* Add space between logo and title */
 }
 
 .left-container div {
 	display: flex;
-	flex-direction: column;
+	align-items: center;
+}
+
+.search-container {
+	flex-grow: 2;
+	/* Increase flex-grow to take more space */
+	display: flex;
+	justify-content: center;
+}
+
+.search-container app-search {
+	width: 100%;
+	max-width: 600px;
+}
+
+.cart-preview {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+a {
+	text-decoration: none;
+	/* Remove underline */
+	color: inherit;
+	/* Inherit text color */
 }
