@@ -10,5 +10,5 @@ export interface Product {
 	releaseDate: string;
 	available: boolean;
 	unitsInStock: number;
-	imageUrl: SafeUrl;
+	imageUrl: string;
 }

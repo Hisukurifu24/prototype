@@ -37,24 +37,10 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['/new']);
   }
   searchProducts() {
-    this.productsService.searchProducts(this.key()).subscribe({
-      next: (products) => {
-        this.products.set(products);
-      },
-      error: (err) => {
-        console.error('Error searching products: ', err);
-      }
-    });
+    this.products.set(this.productsService.searchProducts(this.key()));
   }
   getProducts() {
-    this.productsService.getProducts().subscribe({
-      next: (products) => {
-        this.products.set(products);
-      },
-      error: (err) => {
-        console.error('Error getting products: ', err);
-      }
-    });
+    this.products.set(this.productsService.getProducts());
   }
   onDelete() {
     this.getProducts();

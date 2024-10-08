@@ -36,36 +36,24 @@ export class NewProductComponent implements OnInit {
   ngOnInit(): void {
     this.isUpdate.set(this.id() > 0);
     if (this.isUpdate()) {
-      this.service.getProduct(this.id()).subscribe({
-        next: (p) => {
-          console.log(p);
-          // Convert releaseDate from dd-MM-yyyy to yyyy-MM-dd
-          const [day, month, year] = p.releaseDate.split('-');
-          const formattedDate = `${year}-${month}-${day}`;
+      const p = this.service.getProduct(this.id());
 
-          this.productForm.patchValue({
-            name: p.name,
-            brand: p.brand,
-            category: p.category,
-            description: p.description,
-            price: p.price,
-            releaseDate: formattedDate,
-            available: p.available,
-            unitsInStock: p.unitsInStock,
-          });
-        }
+      console.log(p);
+      // Convert releaseDate from dd-MM-yyyy to yyyy-MM-dd
+      const [day, month, year] = p.releaseDate.split('-');
+      const formattedDate = `${year}-${month}-${day}`;
+
+      this.productForm.patchValue({
+        name: p.name,
+        brand: p.brand,
+        category: p.category,
+        description: p.description,
+        price: p.price,
+        releaseDate: formattedDate,
+        available: p.available,
+        unitsInStock: p.unitsInStock,
       });
-      this.service.getImage(this.id()).subscribe({
-        next: (imageBlob) => {
-          const objectURL = URL.createObjectURL(imageBlob);
-          this.imageUrl.set(objectURL);
-          // if (this.imageUrl() !== null) {
-          //   this.productForm.patchValue({
-          //     imageData: objectURL
-          //   });
-          // }
-        }
-      });
+      this.imageUrl.set(p.imageUrl);
     }
   }
 
@@ -96,14 +84,14 @@ export class NewProductComponent implements OnInit {
     if (this.productForm.valid) {
       if (this.isUpdate()) {
         p.id = this.id();
-        this.service.updateProduct(p, image).subscribe(() => {
-          this.router.navigate(['/products']);
-        });
+        this.service.updateProduct(p, image);
       } else {
-        this.service.addProduct(p, image).subscribe(() => {
-          this.router.navigate(['/products']);
-        });
+        p.id = this.service.getProducts().length + 1;
+        console.log(p);
+
+        this.service.addProduct(p, image);
       }
+      this.router.navigate(['/products']);
     }
   }
 

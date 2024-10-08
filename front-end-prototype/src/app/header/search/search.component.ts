@@ -30,12 +30,7 @@ export class SearchComponent {
     this.searchResults.set([]);
   }
   onSearchType() {
-    this.productsService.searchProducts(this.searchQuery()).subscribe({
-      next: (products) => {
-        console.log('search results', products);
-        this.searchResults.set(products);
-      }
-    });
+    this.searchResults.set(this.productsService.searchProducts(this.searchQuery()));
   }
   onResultClick(id: number) {
     this.router.navigate(['/product', id]).then(() => {
