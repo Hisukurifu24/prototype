@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" class="bottom-toolbar">
+	<span class="spacer"></span>
+	<button mat-icon-button routerLink="/">
+		<mat-icon>home</mat-icon>
+	</button>
+
+	<span class="spacer"></span>
+	<button mat-icon-button routerLink="/cart">
+		@if (cartService.getTotalQuantity() > 0) {
+		<!-- Put a badge -->
+		<mat-icon [matBadge]="cartService.getTotalQuantity()">shopping_cart</mat-icon>
+		} @else {
+		<mat-icon>shopping_cart</mat-icon>
+		}
+	</button>
+	<span class="spacer"></span>
+	<button mat-icon-button routerLink="/profile">
+		<mat-icon>person</mat-icon>
+	</button>
+	<span class="spacer"></span>
+</mat-toolbar>

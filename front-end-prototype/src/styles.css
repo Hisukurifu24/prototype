@@ -1,97 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
-/* General styles */
+/* @import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css"; */
+html,
 body {
-	font-family: Arial, sans-serif;
-	margin: 20px;
+	height: 100%;
 }
 
-/* Product summary */
-p {
-	font-size: 18px;
-	margin: 10px 0;
-}
-
-/* Buttons */
-button {
-	background-color: #007bff;
-	color: white;
-	border: none;
-	padding: 10px 20px;
-	margin: 5px;
-	cursor: pointer;
-	border-radius: 5px;
-}
-
-button.delete {
-	background-color: #dc3545;
-}
-
-button:hover {
-	background-color: #0056b3;
-}
-
-button.delete:hover {
-	background-color: #c82333;
-}
-
-textarea {
-	resize: vertical;
-	/* Allows vertical resizing only */
-}
-
-/* Disabled button */
-button:disabled {
-	background-color: #cccccc;
-	color: #666666;
-	cursor: not-allowed;
-}
-
-/* Invalid input */
-input.ng-touched:invalid,
-textarea.ng-touched:invalid {
-	border: 2px solid #dc3545;
-	background-color: #f8d7da;
-}
-
-input.ng-touched:invalid:focus,
-textarea.ng-touched:invalid:focus {
-	outline: none;
-	box-shadow: 0 0 5px #dc3545;
-}
-
-/* Error message */
-.error {
-	color: #dc3545;
-	font-size: 0.875em;
-	margin-top: 0.25em;
-}
-
-/* Product details */
-div {
-	margin-top: 20px;
-}
-
-h2,
-h3,
-h4 {
-	margin: 10px 0;
-}
-
-h2 {
-	font-size: 24px;
-}
-
-h3 {
-	font-size: 20px;
-	color: #555;
-}
-
-h4 {
-	font-size: 18px;
-	color: #777;
-}
-
-p {
-	font-size: 16px;
-	color: #333;
+body {
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
 }

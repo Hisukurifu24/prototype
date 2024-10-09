@@ -1,23 +1,20 @@
 import { Injectable, OnInit, signal } from '@angular/core';
 import { Product } from './product.model';
+import { dummyProducts } from './dummyProducts';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductsService implements OnInit {
-  allProducts: Product[] = [];
+export class ProductsService {
+  private allProducts: Product[] = dummyProducts;
 
-  ngOnInit(): void {
-    this.loadProducts();
-  }
   getProduct(id: number): Product {
     this.loadProducts();
-    console.log(this.allProducts);
-
 
     return this.allProducts.find(p => p.id == id) as Product;
   }
   getProducts(): Product[] {
+    this.loadProducts();
     return this.allProducts;
   }
   deleteProduct(p: Product): boolean {
@@ -39,7 +36,12 @@ export class ProductsService implements OnInit {
     this.saveProducts();
   }
   searchProducts(search: string): Product[] {
-    return this.allProducts.filter(p => p.name.includes(search));
+    const keyword = search.toLowerCase();
+    return this.allProducts.filter(product =>
+      product.name.toLowerCase().includes(keyword) ||
+      product.description.toLowerCase().includes(keyword) ||
+      product.brand.toLowerCase().includes(keyword)
+    );
   }
 
   loadProducts() {

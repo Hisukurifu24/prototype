@@ -4,11 +4,29 @@ import { ProductsService } from '../products.service';
 import { Product } from '../product.model';
 import { Router } from '@angular/router';
 import { SafeUrl } from '@angular/platform-browser';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+
 
 @Component({
   selector: 'app-new-product',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatError,
+    MatCheckboxModule,
+    MatIconModule,
+    MatDatepickerModule
+  ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './new-product.component.html',
   styleUrls: ['./new-product.component.css']
 })
@@ -25,10 +43,10 @@ export class NewProductComponent implements OnInit {
     category: new FormControl('Smartphones', Validators.required),
     description: new FormControl('The most powerful iPhone ever', Validators.required),
     price: new FormControl('2000', Validators.required),
-    releaseDate: new FormControl('2024-02-20', Validators.required),
+    releaseDate: new FormControl(new Date(2024, 2, 21), Validators.required),
     available: new FormControl(true, Validators.required),
     unitsInStock: new FormControl('100', Validators.required),
-    imageData: new FormControl(null, Validators.required)
+    // imageData: new FormControl(null, Validators.required)
   });
   imageUrl = signal<SafeUrl>('');
 

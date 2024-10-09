@@ -4,6 +4,7 @@ import { ProductsComponent } from './products/products.component';
 import { NewProductComponent } from './products/new-product/new-product.component';
 import { Error404Component } from './error-404/error-404.component';
 import { CartComponent } from './cart/cart.component';
+import { SearchComponent } from './header/search/search.component';
 
 export const routes: Routes = [
 	{
@@ -15,6 +16,11 @@ export const routes: Routes = [
 		path: 'products',
 		component: ProductsComponent,
 		title: 'Products'
+	},
+	{
+		path: 'search',
+		component: SearchComponent,
+		title: 'Search'
 	},
 	{
 		path: 'search/:key',

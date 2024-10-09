@@ -48,3 +48,28 @@ a {
 	color: inherit;
 	/* Inherit text color */
 }
+
+/* Normal toolbar styles */
+.toolbarNav {
+	width: 100%;
+	background-color: #3f51b5;
+	/* Example background color */
+	color: white;
+	display: flex;
+	justify-content: space-between;
+	/* Space elements to the sides */
+	align-items: center;
+	padding: 0 16px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+	height: 56px;
+	/* Standard toolbar height */
+}
+
+/* Example icon styles */
+.example-icon {
+	color: white;
+}
+
+.example-spacer {
+	flex: 1 1 auto;
+}

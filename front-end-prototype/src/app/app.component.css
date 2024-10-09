@@ -1,0 +1,11 @@
+/* Add padding to the bottom of the content to prevent overlap */
+.content-container {
+	padding-bottom: 60px;
+	/* Adjust based on the height of the navbar */
+}
+
+/* Ensure the content is scrollable */
+body,
+.content-container {
+	overflow-y: auto;
+}

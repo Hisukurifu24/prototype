@@ -5,11 +5,19 @@ import { ProductsService } from '../products.service';
 import { DomSanitizer, SafeUrl, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { CartService } from '../../cart/cart.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatCard } from '@angular/material/card';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [
+    CurrencyPipe,
+    MatButtonModule,
+    MatIcon,
+    MatCard
+  ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
