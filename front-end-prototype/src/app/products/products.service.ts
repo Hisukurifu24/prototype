@@ -1,4 +1,4 @@
-import { Injectable, OnInit, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Product } from './product.model';
 import { dummyProducts } from './dummyProducts';
 

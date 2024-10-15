@@ -1,0 +1,16 @@
+img {
+	width: 100%;
+}
+
+mat-card-actions {
+	display: flex;
+	justify-content: space-between;
+}
+
+.example-card {
+	max-width: 200px;
+}
+
+.cart-button {
+	width: 100%;
+}

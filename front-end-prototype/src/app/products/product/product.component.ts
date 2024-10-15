@@ -1,8 +1,8 @@
-import { Component, computed, inject, input, OnInit, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { Product } from '../product.model';
 import { CurrencyPipe } from '@angular/common';
 import { ProductsService } from '../products.service';
-import { DomSanitizer, SafeUrl, Title } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { CartService } from '../../cart/cart.service';
 import { MatButtonModule } from '@angular/material/button';

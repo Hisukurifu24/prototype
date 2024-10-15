@@ -95,7 +95,7 @@ export class NewProductComponent implements OnInit {
     const image = this.productForm.get('imageData')?.value;
 
     // Convert releaseDate from yyyy-MM-dd to dd-MM-yyyy
-    p.releaseDate = p.releaseDate.split('-').reverse().join('-');
+    // p.releaseDate = p.releaseDate.split('-').reverse().join('-');
 
 
 

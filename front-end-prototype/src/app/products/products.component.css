@@ -1,15 +1,3 @@
-img {
-	width: 100%;
-}
-
-.example-card {
-	max-width: 200px;
-}
-
-.cart-button {
-	width: 100%;
-}
-
 .product-header {
 	display: flex;
 	justify-content: space-between;
