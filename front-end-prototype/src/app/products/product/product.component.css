@@ -1,17 +1,18 @@
 /* product.component.css */
 .product-image {
-	width: 200px;
-	height: auto;
+	width: 100%;
 }
 
-/* Admin commands */
-div>div {
-	margin-top: 20px;
-	border-top: 1px solid #ccc;
-	padding-top: 10px;
+mat-card,
+div {
+	margin: 20px;
 }
 
-div>div>p {
-	font-weight: bold;
-	margin-bottom: 10px;
+
+.fab-bottom-right {
+	position: fixed;
+	bottom: 64px;
+	right: 16px;
+	z-index: 1000;
+	/* Ensure it is above other elements */
 }

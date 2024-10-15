@@ -1,4 +1,4 @@
-<input type="search" class="search-input" placeholder="Search..." [(ngModel)]="searchQuery" (search)="onSearch()"
+<!-- <input type="search" class="search-input" placeholder="Search..." [(ngModel)]="searchQuery" (search)="onSearch()"
 	(ngModelChange)="onSearchType()" />
 <button type="submit" class="search-button" (click)="onSearch()">Search</button>
 
@@ -10,4 +10,22 @@
 		}
 	</ul>
 </div>
-}
+} -->
+<mat-form-field>
+	<mat-label>Search</mat-label>
+	<input matInput type="search" [(ngModel)]="searchQuery" [matAutocomplete]="auto" (search)="onSearch()"
+		(ngModelChange)="onSearchType()">
+	@if (searchQuery()) {
+	<button matSuffix mat-icon-button aria-label="Clear" (click)="searchQuery.set('')">
+		<mat-icon>close</mat-icon>
+	</button>
+	}
+</mat-form-field>
+
+<mat-autocomplete #auto="matAutocomplete">
+	@for (result of searchResults(); track result.id) {
+	<mat-option [value]="result.name" (onSelectionChange)="onResultClick(result.id)">
+		{{result.name}}
+	</mat-option>
+	}
+</mat-autocomplete>

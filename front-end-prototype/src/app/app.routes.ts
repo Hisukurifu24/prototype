@@ -1,9 +1,5 @@
 import { Routes } from '@angular/router';
-import { ProductComponent } from './products/product/product.component';
 import { ProductsComponent } from './products/products.component';
-import { NewProductComponent } from './products/new-product/new-product.component';
-import { Error404Component } from './error-404/error-404.component';
-import { CartComponent } from './cart/cart.component';
 
 export const routes: Routes = [
 	{
@@ -17,32 +13,37 @@ export const routes: Routes = [
 		title: 'Products'
 	},
 	{
+		path: 'search',
+		loadComponent: () => import('./header/search/search.component').then(m => m.SearchComponent),
+		title: 'Search'
+	},
+	{
 		path: 'search/:key',
-		component: ProductsComponent,
+		loadComponent: () => import('./products/products.component').then(m => m.ProductsComponent),
 		title: 'Search Results'
 	},
 	{
 		path: 'product/:id',
-		component: ProductComponent,
+		loadComponent: () => import('./products/product/product.component').then(m => m.ProductComponent),
 	},
 	{
 		path: 'new',
-		component: NewProductComponent,
+		loadComponent: () => import('./products/new-product/new-product.component').then(m => m.NewProductComponent),
 		title: 'New Product'
 	},
 	{
 		path: 'edit/:id',
-		component: NewProductComponent,
+		loadComponent: () => import('./products/new-product/new-product.component').then(m => m.NewProductComponent),
 		title: 'Edit Product'
 	},
 	{
 		path: 'cart',
-		component: CartComponent,
+		loadComponent: () => import('./cart/cart.component').then(m => m.CartComponent),
 		title: 'Cart'
 	},
 	{
 		path: '**',
-		component: Error404Component,
+		loadComponent: () => import('./error-404/error-404.component').then(m => m.Error404Component),
 		title: 'Error 404'
 
 	},

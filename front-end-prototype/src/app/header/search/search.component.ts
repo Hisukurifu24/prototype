@@ -4,11 +4,24 @@ import { FormsModule } from '@angular/forms';
 import { Product } from '../../products/product.model';
 import { CurrencyPipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [FormsModule, CurrencyPipe],
+  imports: [FormsModule,
+    CurrencyPipe,
+    MatFormFieldModule,
+    MatLabel,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatAutocompleteModule,
+  ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
@@ -30,12 +43,7 @@ export class SearchComponent {
     this.searchResults.set([]);
   }
   onSearchType() {
-    this.productsService.searchProducts(this.searchQuery()).subscribe({
-      next: (products) => {
-        console.log('search results', products);
-        this.searchResults.set(products);
-      }
-    });
+    this.searchResults.set(this.productsService.searchProducts(this.searchQuery()));
   }
   onResultClick(id: number) {
     this.router.navigate(['/product', id]).then(() => {

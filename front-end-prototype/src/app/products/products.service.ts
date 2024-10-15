@@ -1,41 +1,56 @@
-import { inject, Injectable, InputSignal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Product } from './product.model';
+import { dummyProducts } from './dummyProducts';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  client = inject(HttpClient);
-  private baseUrl = 'http://localhost:8080/api';
+  private allProducts: Product[] = dummyProducts;
 
-  getProduct(id: number) {
-    return this.client.get<Product>(this.baseUrl + '/products/' + id);
+  getProduct(id: number): Product {
+    this.loadProducts();
+
+    return this.allProducts.find(p => p.id == id) as Product;
   }
-  getImage(id: number) {
-    return this.client.get(this.baseUrl + '/products/' + id + '/image', {
-      responseType: 'blob'
-    });
+  getProducts(): Product[] {
+    this.loadProducts();
+    return this.allProducts;
   }
-  getProducts() {
-    return this.client.get<Product[]>(this.baseUrl + '/products');
-  }
-  deleteProduct(p: Product) {
-    return this.client.delete<string>(this.baseUrl + '/product/' + p.id);
+  deleteProduct(p: Product): boolean {
+    if (this.allProducts.find(pr => pr.id == p.id)) {
+      this.allProducts = this.allProducts.filter(pr => pr.id != p.id);
+      this.saveProducts();
+      return true;
+    } else {
+      return false;
+    }
   }
   addProduct(p: Product, image: File) {
-    const multipart = new FormData();
-    multipart.append('p', new Blob([JSON.stringify(p)], { type: 'application/json' }));
-    multipart.append('image', image);
-    return this.client.post(this.baseUrl + '/product', multipart);
+    this.allProducts.push(p);
+    this.saveProducts();
   }
   updateProduct(p: Product, image: File) {
-    const multipart = new FormData();
-    multipart.append('p', new Blob([JSON.stringify(p)], { type: 'application/json' }));
-    multipart.append('image', image);
-    return this.client.put(this.baseUrl + '/product/' + p.id, multipart);
+    const index = this.allProducts.findIndex(pr => pr.id == p.id);
+    this.allProducts[index] = p;
+    this.saveProducts();
   }
-  searchProducts(search: string) {
-    return this.client.get<Product[]>(this.baseUrl + '/products/search', { params: { keyword: search } });
+  searchProducts(search: string): Product[] {
+    const keyword = search.toLowerCase();
+    return this.allProducts.filter(product =>
+      product.name.toLowerCase().includes(keyword) ||
+      product.description.toLowerCase().includes(keyword) ||
+      product.brand.toLowerCase().includes(keyword)
+    );
+  }
+
+  loadProducts() {
+    const products = localStorage.getItem('products');
+    if (products) {
+      this.allProducts = JSON.parse(products);
+    }
+  }
+  saveProducts() {
+    localStorage.setItem('products', JSON.stringify(this.allProducts));
   }
 }

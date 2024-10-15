@@ -1,4 +1,4 @@
-<h1>
+<!-- <h1>
 	@if (key()) {
 	Results for: {{ key() }}
 	} @else {
@@ -14,4 +14,31 @@
 		</a>
 	</li>
 	}
-</ul>
+</ul> -->
+<h2 class="product-header">
+	@if (key()) {
+	Results for: {{ key() }}
+	} @else {
+	All Products
+	}
+</h2>
+<mat-grid-list cols="2" rowHeight="6:10">
+	@for (p of products(); track p.id) {
+	@defer (on viewport) {
+	<mat-grid-tile>
+		<app-product-card [product]="p" />
+	</mat-grid-tile>
+	} @placeholder {
+	<mat-grid-tile>
+		<p>
+			{{ p.name }} - {{ p.price | currency: 'EUR' }}
+		</p>
+	</mat-grid-tile>
+	}
+	}
+</mat-grid-list>
+
+<button mat-fab extended class="fab-bottom-right" (click)="addProduct()">
+	<mat-icon>add</mat-icon>
+	New Product
+</button>

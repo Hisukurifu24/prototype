@@ -4,11 +4,29 @@ import { ProductsService } from '../products.service';
 import { Product } from '../product.model';
 import { Router } from '@angular/router';
 import { SafeUrl } from '@angular/platform-browser';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+
 
 @Component({
   selector: 'app-new-product',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatError,
+    MatCheckboxModule,
+    MatIconModule,
+    MatDatepickerModule
+  ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './new-product.component.html',
   styleUrls: ['./new-product.component.css']
 })
@@ -25,10 +43,10 @@ export class NewProductComponent implements OnInit {
     category: new FormControl('Smartphones', Validators.required),
     description: new FormControl('The most powerful iPhone ever', Validators.required),
     price: new FormControl('2000', Validators.required),
-    releaseDate: new FormControl('2024-02-20', Validators.required),
+    releaseDate: new FormControl(new Date(2024, 2, 21), Validators.required),
     available: new FormControl(true, Validators.required),
     unitsInStock: new FormControl('100', Validators.required),
-    imageData: new FormControl(null, Validators.required)
+    // imageData: new FormControl(null, Validators.required)
   });
   imageUrl = signal<SafeUrl>('');
 
@@ -36,36 +54,24 @@ export class NewProductComponent implements OnInit {
   ngOnInit(): void {
     this.isUpdate.set(this.id() > 0);
     if (this.isUpdate()) {
-      this.service.getProduct(this.id()).subscribe({
-        next: (p) => {
-          console.log(p);
-          // Convert releaseDate from dd-MM-yyyy to yyyy-MM-dd
-          const [day, month, year] = p.releaseDate.split('-');
-          const formattedDate = `${year}-${month}-${day}`;
+      const p = this.service.getProduct(this.id());
 
-          this.productForm.patchValue({
-            name: p.name,
-            brand: p.brand,
-            category: p.category,
-            description: p.description,
-            price: p.price,
-            releaseDate: formattedDate,
-            available: p.available,
-            unitsInStock: p.unitsInStock,
-          });
-        }
+      console.log(p);
+      // Convert releaseDate from dd-MM-yyyy to yyyy-MM-dd
+      const [day, month, year] = p.releaseDate.split('-');
+      const formattedDate = `${year}-${month}-${day}`;
+
+      this.productForm.patchValue({
+        name: p.name,
+        brand: p.brand,
+        category: p.category,
+        description: p.description,
+        price: p.price,
+        releaseDate: formattedDate,
+        available: p.available,
+        unitsInStock: p.unitsInStock,
       });
-      this.service.getImage(this.id()).subscribe({
-        next: (imageBlob) => {
-          const objectURL = URL.createObjectURL(imageBlob);
-          this.imageUrl.set(objectURL);
-          // if (this.imageUrl() !== null) {
-          //   this.productForm.patchValue({
-          //     imageData: objectURL
-          //   });
-          // }
-        }
-      });
+      this.imageUrl.set(p.imageUrl);
     }
   }
 
@@ -89,21 +95,21 @@ export class NewProductComponent implements OnInit {
     const image = this.productForm.get('imageData')?.value;
 
     // Convert releaseDate from yyyy-MM-dd to dd-MM-yyyy
-    p.releaseDate = p.releaseDate.split('-').reverse().join('-');
+    // p.releaseDate = p.releaseDate.split('-').reverse().join('-');
 
 
 
     if (this.productForm.valid) {
       if (this.isUpdate()) {
         p.id = this.id();
-        this.service.updateProduct(p, image).subscribe(() => {
-          this.router.navigate(['/products']);
-        });
+        this.service.updateProduct(p, image);
       } else {
-        this.service.addProduct(p, image).subscribe(() => {
-          this.router.navigate(['/products']);
-        });
+        p.id = this.service.getProducts().length + 1;
+        console.log(p);
+
+        this.service.addProduct(p, image);
       }
+      this.router.navigate(['/products']);
     }
   }
 

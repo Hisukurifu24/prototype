@@ -3,13 +3,25 @@ import { ProductsService } from './products.service';
 import { ProductComponent } from "./product/product.component";
 import { Product } from './product.model';
 import { NewProductComponent } from "./new-product/new-product.component";
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { CurrencyPipe } from '@angular/common';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { ProductCardComponent } from "./product-card/product-card.component";
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [ProductComponent, NewProductComponent, CurrencyPipe, RouterLink],
+  imports: [
+    ProductComponent,
+    NewProductComponent,
+    CurrencyPipe,
+    MatGridListModule,
+    MatButtonModule,
+    MatIcon,
+    ProductCardComponent
+  ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -17,10 +29,6 @@ export class ProductsComponent implements OnInit {
   key = input<string>('');
   isAddingProduct = signal(false);
 
-  onSubmit() {
-    this.isAddingProduct.set(false);
-    this.getProducts();
-  }
   private productsService = inject(ProductsService);
   private router = inject(Router);
 
@@ -33,30 +41,16 @@ export class ProductsComponent implements OnInit {
       this.getProducts();
     }
   }
+
   addProduct() {
     this.router.navigate(['/new']);
   }
-  searchProducts() {
-    this.productsService.searchProducts(this.key()).subscribe({
-      next: (products) => {
-        this.products.set(products);
-      },
-      error: (err) => {
-        console.error('Error searching products: ', err);
-      }
-    });
+  private searchProducts() {
+    this.products.set(this.productsService.searchProducts(this.key()));
   }
-  getProducts() {
-    this.productsService.getProducts().subscribe({
-      next: (products) => {
-        this.products.set(products);
-      },
-      error: (err) => {
-        console.error('Error getting products: ', err);
-      }
-    });
+  private getProducts() {
+    const products = this.productsService.getProducts();
+    this.products.set(products);
   }
-  onDelete() {
-    this.getProducts();
-  }
+
 }

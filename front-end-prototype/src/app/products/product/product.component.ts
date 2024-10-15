@@ -1,15 +1,23 @@
-import { Component, computed, inject, input, OnInit, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { Product } from '../product.model';
 import { CurrencyPipe } from '@angular/common';
 import { ProductsService } from '../products.service';
-import { DomSanitizer, SafeUrl, Title } from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { CartService } from '../../cart/cart.service';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatCard } from '@angular/material/card';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [
+    CurrencyPipe,
+    MatButtonModule,
+    MatIcon,
+    MatCard
+  ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 })
@@ -33,34 +41,21 @@ export class ProductComponent {
   private router = inject(Router);
   private title = inject(Title);
   private service = inject(ProductsService);
-  private sanitizer = inject(DomSanitizer);
   private cartService = inject(CartService);
 
   ngOnInit(): void {
     this.getProduct();
-    this.getImageUrl();
   }
 
 
   getProduct() {
-    this.service.getProduct(this.id()).subscribe({
-      next: (p) => {
-        this.product.set(p);
-        this.title.setTitle(p.name);
-      },
-      error: (err) => {
-        console.error('Error getting product: ', err);
-      }
-    });
-  }
+    console.log('Product ID: ', this.id());
 
-  getImageUrl() {
-    this.service.getImage(this.id()).subscribe({
-      next: (imageBlob) => {
-        const objectURL = URL.createObjectURL(imageBlob);
-        this.product().imageUrl = (this.sanitizer.bypassSecurityTrustUrl(objectURL));
-      }
-    });
+    this.product.set(this.service.getProduct(this.id()));
+
+    console.log('Product: ', this.product());
+
+    this.title.setTitle(this.product().name);
   }
 
   deleteProduct(p: Product) {
@@ -68,16 +63,14 @@ export class ProductComponent {
     if (!reply) {
       return;
     } else {
-      this.service.deleteProduct(p).subscribe({
-        next: () => {
-          console.log('Product deleted: ', p);
-          this.delete.emit();
-          this.router.navigate(['/']);
-        },
-        error: (err) => {
-          console.error('Error deleting product: ', err);
-        }
-      });
+      const result = this.service.deleteProduct(p);
+      if (result) {
+        console.log('Product deleted: ', p);
+        this.delete.emit();
+        this.router.navigate(['/']);
+      } else {
+        console.error('Error deleting product: ', p);
+      }
     }
 
   }

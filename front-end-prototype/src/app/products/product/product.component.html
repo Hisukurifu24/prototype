@@ -1,23 +1,33 @@
 <div>
-	<img [src]="product().imageUrl" alt="Product Image" class="product-image">
+	<img src="failed-loading.svg" alt="Product Image" class="product-image">
 </div>
-<div>
-	<h2>
-		{{product().name}}
-	</h2>
-	<h3>
-		{{product().price | currency:'EUR'}}
-	</h3>
-	<h4>
-		{{product().brand}}
-	</h4>
-	<p>
-		{{product().description}}
-	</p>
-	<button (click)="addToCart(product())">Add to cart</button>
+<mat-card>
 	<div>
-		<p>Admin commands</p>
-		<button (click)="editProduct(product())">Edit</button>
-		<button class="delete" (click)="deleteProduct(product())">Delete</button>
+		<h2>
+			{{product().name}}
+		</h2>
+		<h3>
+			<b> {{product().price | currency:'EUR'}} </b>
+		</h3>
+		<h5>
+			{{product().brand}}
+		</h5>
+		<p>
+			{{product().description}}
+		</p>
 	</div>
-</div>
+</mat-card>
+
+<mat-card>
+	<div>
+		<p>Admin commands:</p>
+		<button mat-button (click)="editProduct(product())">Edit</button>
+		<button mat-button class="mat-warn" (click)="deleteProduct(product())">Delete</button>
+	</div>
+</mat-card>
+
+
+<button mat-fab extended class="fab-bottom-right" (click)="addToCart(product())">
+	<mat-icon>add_shopping_cart</mat-icon>
+	Add to cart
+</button>
