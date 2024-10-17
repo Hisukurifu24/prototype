@@ -1,0 +1,24 @@
+@if (user) {
+<h1>Ciao {{user.first_name}} </h1>
+} @else {
+<h1>Benvenuto</h1>
+<p>Per favore, effettua il login per accedere al tuo profilo</p>
+}
+
+<mat-list>
+	<mat-list-item [routerLink]="['/profile-info']">
+		<mat-icon matListItemIcon> person </mat-icon>
+		Personal information
+	</mat-list-item>
+	<mat-divider></mat-divider>
+	<mat-list-item [routerLink]="['/orders']">
+		<mat-icon matListItemIcon> local_shipping </mat-icon>
+		Orders
+	</mat-list-item>
+	<mat-divider></mat-divider>
+	<mat-list-item [routerLink]="['/profile-info']">
+		<mat-icon matListItemIcon> settings </mat-icon>
+		Settings
+	</mat-list-item>
+
+</mat-list>

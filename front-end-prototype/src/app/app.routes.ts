@@ -42,6 +42,11 @@ export const routes: Routes = [
 		title: 'Cart'
 	},
 	{
+		path: 'profile',
+		loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),
+		title: 'Profile'
+	},
+	{
 		path: '**',
 		loadComponent: () => import('./error-404/error-404.component').then(m => m.Error404Component),
 		title: 'Error 404'
