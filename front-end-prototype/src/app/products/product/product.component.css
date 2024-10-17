@@ -16,3 +16,12 @@ div {
 	z-index: 1000;
 	/* Ensure it is above other elements */
 }
+
+mat-card-actions {
+	display: flex;
+	justify-content: space-between;
+}
+
+.cart-button {
+	width: 100%;
+}

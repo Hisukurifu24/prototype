@@ -8,7 +8,9 @@ import { CurrencyPipe } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ProductCardComponent } from "./product-card/product-card.component";
+import WebApp from '@twa-dev/sdk'
 
 @Component({
   selector: 'app-products',
@@ -20,6 +22,7 @@ import { ProductCardComponent } from "./product-card/product-card.component";
     MatGridListModule,
     MatButtonModule,
     MatIcon,
+    MatPaginatorModule,
     ProductCardComponent
   ],
   templateUrl: './products.component.html',
@@ -32,6 +35,8 @@ export class ProductsComponent implements OnInit {
   private productsService = inject(ProductsService);
   private router = inject(Router);
 
+  pageSize = signal(10);
+  pageIndex = signal(0);
   products = signal<Product[]>([]);
 
   ngOnInit(): void {
@@ -40,6 +45,8 @@ export class ProductsComponent implements OnInit {
     } else {
       this.getProducts();
     }
+
+    this.pageSize.set(parseInt(sessionStorage.getItem('pageSize') || '10'));
   }
 
   addProduct() {
@@ -51,6 +58,12 @@ export class ProductsComponent implements OnInit {
   private getProducts() {
     const products = this.productsService.getProducts();
     this.products.set(products);
+  }
+
+  handlePageEvent(e: PageEvent) {
+    this.pageSize.set(e.pageSize);
+    this.pageIndex.set(e.pageIndex);
+    sessionStorage.setItem('pageSize', e.pageSize.toString());
   }
 
 }
