@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { CartService } from '../../cart/cart.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { MatCard } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-product',
@@ -16,7 +16,7 @@ import { MatCard } from '@angular/material/card';
     CurrencyPipe,
     MatButtonModule,
     MatIcon,
-    MatCard
+    MatCardModule
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
@@ -79,5 +79,16 @@ export class ProductComponent {
   }
   addToCart(p: Product) {
     this.cartService.addItem(p);
+  }
+  getItemInCart(product: Product) {
+    return this.cartService.getItem(product);
+  }
+  onAddToCart(event: Event, product: Product) {
+    event.stopPropagation();
+    this.cartService.addItem(product);
+  }
+  onRemoveFromCart(event: MouseEvent, product: Product) {
+    event.stopPropagation();
+    this.cartService.removeOne(product);
   }
 }

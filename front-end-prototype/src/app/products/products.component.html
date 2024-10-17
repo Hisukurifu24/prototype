@@ -1,20 +1,6 @@
-<!-- <h1>
-	@if (key()) {
-	Results for: {{ key() }}
-	} @else {
-	All Products
-	}
-	<button (click)="addProduct()">Add Product</button>
-</h1>
-<ul class="product-list">
-	@for (p of products(); track p.id) {
-	<li class="product-item">
-		<a [routerLink]="['/product', p.id]" class="product-link">
-			{{ p.name }} - {{ p.price | currency: 'EUR' }}
-		</a>
-	</li>
-	}
-</ul> -->
+<mat-paginator (page)="handlePageEvent($event)" [length]="products().length" [pageSize]="pageSize()"
+	[pageIndex]="pageIndex()" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page" />
+
 <h2 class="product-header">
 	@if (key()) {
 	Results for: {{ key() }}
@@ -23,7 +9,7 @@
 	}
 </h2>
 <mat-grid-list cols="2" rowHeight="6:10">
-	@for (p of products(); track p.id) {
+	@for (p of products().slice(pageIndex()*pageSize(), (pageIndex()+1)*pageSize()); track p.id) {
 	@defer (on viewport) {
 	<mat-grid-tile>
 		<app-product-card [product]="p" />
