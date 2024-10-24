@@ -31,7 +31,14 @@
 		<button routerLink="/checkout">Checkout</button>
 	</div>
 </div> -->
-
+@if (items().length >0) {
+<div class="centered">
+	<button mat-button class="mat-warn" (click)="onClear()">
+		<mat-icon>clear</mat-icon>
+		<span>Clear</span>
+	</button>
+</div>
+}
 <h4 class="centered">
 	Totale provvisorio: <br />
 	<b> {{total() | currency:"EUR"}} </b>
@@ -61,9 +68,11 @@
 			</button>
 		</mat-form-field>
 	</mat-card-content>
+	@if (item.quantity > 1) {
 	<mat-card-actions>
 		<button mat-button class="mat-warn" (click)="$event.stopPropagation(); removeItem(item);">Remove</button>
 	</mat-card-actions>
+	}
 </mat-card>
 }
 } @else {

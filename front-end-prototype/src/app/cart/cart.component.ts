@@ -66,4 +66,10 @@ export class CartComponent {
 
     this.cartService.setItem(item.product, +newValue);
   }
+  onClear() {
+    const confirm = window.confirm('Are you sure you want to remove ALL items?');
+    if (confirm) {
+      this.cartService.clearCart();
+    }
+  }
 }
