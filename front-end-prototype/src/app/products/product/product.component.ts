@@ -8,6 +8,7 @@ import { CartService } from '../../cart/cart.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import WebApp from '@twa-dev/sdk';
 
 @Component({
   selector: 'app-product',
@@ -44,6 +45,11 @@ export class ProductComponent {
   private cartService = inject(CartService);
 
   ngOnInit(): void {
+    WebApp.BackButton.show();
+    WebApp.BackButton.onClick(() => {
+      this.router.navigate(['/']);
+      WebApp.BackButton.hide();
+    });
     this.getProduct();
   }
 
