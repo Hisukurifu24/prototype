@@ -8,7 +8,7 @@ mat-card-actions {
 }
 
 .example-card {
-	max-width: 200px;
+	width: 100%;
 }
 
 .cart-button {
