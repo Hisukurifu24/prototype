@@ -10,6 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ProductCardComponent } from "./product-card/product-card.component";
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import WebApp from '@twa-dev/sdk';
+
 
 @Component({
   selector: 'app-products',
@@ -28,11 +31,13 @@ import { ProductCardComponent } from "./product-card/product-card.component";
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit {
+  cols = signal(2);
   key = input<string>('');
   isAddingProduct = signal(false);
 
   private productsService = inject(ProductsService);
   private router = inject(Router);
+  private breakpointObserver = inject(BreakpointObserver);
 
   pageSize = signal(10);
   pageIndex = signal(0);
@@ -46,6 +51,28 @@ export class ProductsComponent implements OnInit {
     }
 
     this.pageSize.set(parseInt(sessionStorage.getItem('pageSize') || '10'));
+
+    this.breakpointObserver.observe([
+      Breakpoints.Handset,
+      Breakpoints.Tablet,
+      Breakpoints.Web
+    ]).subscribe(result => {
+      const isHandset = result.breakpoints[Breakpoints.HandsetPortrait] || result.breakpoints[Breakpoints.HandsetLandscape];
+      const isTablet = result.breakpoints[Breakpoints.TabletPortrait] || result.breakpoints[Breakpoints.TabletLandscape];
+      const isWeb = result.breakpoints[Breakpoints.WebPortrait] || result.breakpoints[Breakpoints.WebLandscape];
+
+      if (isHandset) {
+        this.cols.set(1);
+      } else if (isTablet) {
+        this.cols.set(3);
+      } else if (isWeb) {
+        this.cols.set(5);
+      } else {
+        this.cols.set(2);
+        console.error('Unknown breakpoint');
+      }
+    });
+
   }
 
   addProduct() {
@@ -63,6 +90,7 @@ export class ProductsComponent implements OnInit {
     this.pageSize.set(e.pageSize);
     this.pageIndex.set(e.pageIndex);
     sessionStorage.setItem('pageSize', e.pageSize.toString());
+    window.scrollTo(0, 0);
   }
 
 }

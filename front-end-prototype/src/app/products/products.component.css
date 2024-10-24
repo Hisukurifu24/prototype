@@ -5,6 +5,11 @@
 	margin: 20px;
 }
 
+app-product-card {
+	width: 100%;
+	margin: 20px;
+}
+
 .fab-bottom-right {
 	position: fixed;
 	bottom: 64px;
