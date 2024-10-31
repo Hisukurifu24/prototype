@@ -47,6 +47,16 @@ export const routes: Routes = [
 		title: 'Profile'
 	},
 	{
+		path: 'checkout',
+		loadComponent: () => import('./checkout/checkout.component').then(m => m.CheckoutComponent),
+		title: 'Checkout'
+	},
+	{
+		path: 'auth',
+		loadComponent: () => import('./auth/auth.component').then(m => m.AuthComponent),
+		title: 'Authentication'
+	},
+	{
 		path: '**',
 		loadComponent: () => import('./error-404/error-404.component').then(m => m.Error404Component),
 		title: 'Error 404'
