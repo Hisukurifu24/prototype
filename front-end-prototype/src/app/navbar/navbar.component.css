@@ -13,8 +13,7 @@
 @media screen and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait),
 screen and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
 	.bottom-toolbar {
-		bottom: 10px;
-		/* Adjust this value as needed */
+		height: 66px;
 	}
 }
 

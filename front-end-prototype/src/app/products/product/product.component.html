@@ -1,43 +1,47 @@
-<div>
+<div class="product-container">
 	<img src="failed-loading.svg" alt="Product Image" class="product-image">
+	<mat-card class="product-card">
+		<div>
+			<h2>
+				{{product().name}}
+			</h2>
+			<h3>
+				<b> {{product().price | currency:'EUR'}} </b>
+			</h3>
+			<h5>
+				{{product().brand}}
+			</h5>
+			<p>
+				{{product().description}}
+			</p>
+		</div>
+		<mat-card-actions class="product-card-actions">
+			@if(getItemInCart(product()) === undefined) {
+			<button mat-flat-button extended class="cart-button" (click)="onAddToCart($event, product())">
+				<mat-icon>add_shopping_cart</mat-icon>
+				Add to cart
+			</button>
+			} @else {
+			<button mat-icon-button (click)="onRemoveFromCart($event, product())">
+				<mat-icon>remove</mat-icon>
+			</button>
+			{{getItemInCart(product())!.quantity}}
+			<button mat-icon-button (click)="onAddToCart($event, product())">
+				<mat-icon>add</mat-icon>
+			</button>
+			}
+		</mat-card-actions>
+	</mat-card>
 </div>
-<mat-card>
-	<div>
-		<h2>
-			{{product().name}}
-		</h2>
-		<h3>
-			<b> {{product().price | currency:'EUR'}} </b>
-		</h3>
-		<h5>
-			{{product().brand}}
-		</h5>
-		<p>
-			{{product().description}}
-		</p>
-	</div>
-	<mat-card-actions>
-		@if(getItemInCart(product()) === undefined) {
-		<button mat-flat-button extended class="cart-button" (click)="onAddToCart($event, product())">
-			<mat-icon>add_shopping_cart</mat-icon>
-			Add to cart
-		</button>
-		} @else {
-		<button mat-icon-button (click)="onRemoveFromCart($event, product())">
-			<mat-icon>remove</mat-icon>
-		</button>
-		{{getItemInCart(product())!.quantity}}
-		<button mat-icon-button (click)="onAddToCart($event, product())">
-			<mat-icon>add</mat-icon>
-		</button>
-		}
-	</mat-card-actions>
-</mat-card>
 
-<mat-card>
+<mat-card class="admin-commands">
 	<div>
 		<p>Admin commands:</p>
+	</div>
+	<mat-card-actions class="admin-commands-actions">
+
 		<button mat-button (click)="editProduct(product())">Edit</button>
 		<button mat-button class="mat-warn" (click)="deleteProduct(product())">Delete</button>
-	</div>
+	</mat-card-actions>
+
 </mat-card>
