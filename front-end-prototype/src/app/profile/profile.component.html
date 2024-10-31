@@ -1,11 +1,9 @@
 @if (user) {
-<h1>Ciao {{user.first_name}} </h1>
-} @else {
-<h1>Benvenuto</h1>
-<p>Per favore, effettua il login per accedere al tuo profilo</p>
-}
-
+<div class="welcome-message">
+	<h1>Ciao {{user.first_name}}</h1>
+</div>
 <mat-list>
+	<mat-divider></mat-divider>
 	<mat-list-item [routerLink]="['/profile-info']">
 		<mat-icon matListItemIcon> person </mat-icon>
 		Personal information
@@ -16,9 +14,29 @@
 		Orders
 	</mat-list-item>
 	<mat-divider></mat-divider>
-	<mat-list-item [routerLink]="['/profile-info']">
+	<mat-list-item [routerLink]="['/settings']">
 		<mat-icon matListItemIcon> settings </mat-icon>
 		Settings
 	</mat-list-item>
+</mat-list>
+} @else {
+<div class="welcome-message">
+	<h1>Benvenuto</h1>
+	<p>Per favore, effettua il login tramite telegram per accedere al tuo profilo</p>
+</div>
+<mat-list>
+	<mat-divider></mat-divider>
+	<mat-list-item [routerLink]="['/settings']">
+		<mat-icon matListItemIcon> settings </mat-icon>
+		Settings
+	</mat-list-item>
+</mat-list>
 
+}
+<mat-list>
+	<mat-divider></mat-divider>
+	<mat-list-item [routerLink]="['/auth']">
+		<mat-icon matListItemIcon> auth </mat-icon>
+		Auth
+	</mat-list-item>
 </mat-list>

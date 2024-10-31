@@ -20,4 +20,8 @@ import { RouterLink } from '@angular/router';
 })
 export class ProfileComponent {
   user = WebApp.initDataUnsafe.user;
+
+  constructor() {
+    console.log('User:', this.user);
+  }
 }
