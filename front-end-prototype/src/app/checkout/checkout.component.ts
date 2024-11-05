@@ -1,5 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AsyncPipe } from '@angular/common';
+import { map, Observable } from 'rxjs';
+import { BreakpointObserver } from '@angular/cdk/layout';
+
+import { Deliver } from './deliver.model';
+import { Payment } from './payment.model';
+
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule, StepperOrientation } from '@angular/material/stepper';
@@ -10,12 +17,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { AsyncPipe } from '@angular/common';
-import { map, Observable } from 'rxjs';
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import WebApp from '@twa-dev/sdk';
-import { Deliver } from './deliver.model';
-import { Payment } from './payment.model';
+import * as TonConnectUI from '@tonconnect/ui'
+
 
 
 @Component({
@@ -49,12 +54,17 @@ export class CheckoutComponent {
 
   selectedDeliver: string = '';
   selectedPayment: string = '';
+  isWalletConnected: boolean = false;
+
+  paymentStatus: 'loading' | 'success' | 'error' = 'loading';
 
   savedAddress = signal<Deliver[]>([]);
   createNewDeliver = signal<boolean>(false);
 
   savedPayments = signal<Payment[]>([]);
   createNewPayment = signal<boolean>(false);
+
+  tonConnectUI: TonConnectUI.TonConnectUI | null = null;
 
 
   firstFormGroup = this._formBuilder.group({
@@ -101,13 +111,41 @@ export class CheckoutComponent {
       }
       this.savedPayments.set(JSON.parse(res ?? ''));
     });
+
+  }
+
+  ngAfterViewInit(): void {
+    console.log('tonConnectUI');
+    this.tonConnectUI = new TonConnectUI.TonConnectUI({
+      manifestUrl: 'https://tminiapp-unipd.web.app/tonconnect-manifest.json',
+      buttonRootId: 'ton-connect'
+    });
+    // this.tonConnectUI.uiOptions = {
+    //   twaReturnUrl: 'https://t.me/AmazingSynclabBot/amazing'
+    // };
+
+    console.log('isWalletConnected', this.tonConnectUI.wallet);
+
+    this.isWalletConnected = this.tonConnectUI.connected;
+
+    const unsubscribe = this.tonConnectUI.onStatusChange(
+      (walletAndwalletInfo: any) => {
+        if (walletAndwalletInfo) {
+          this.isWalletConnected = (true);
+          console.log('isWalletConnected', this.isWalletConnected);
+
+        }
+      }
+    );
   }
 
   isDeliverCompleted(): boolean {
     return this.firstFormGroup.valid || this.selectedDeliver !== '';
   }
+
+
   isPaymentCompleted(): boolean {
-    return this.secondFormGroup.valid || this.selectedPayment !== '';
+    return this.secondFormGroup.valid || this.selectedPayment !== '' || this.isWalletConnected;
   }
 
   onDeliverSubmit($event: any) {
@@ -252,5 +290,23 @@ export class CheckoutComponent {
       }
       );
     }
+  }
+  sendPayment($event: any) {
+    const transaction = {
+      validUntil: Math.floor(Date.now() / 1000) + 60, // 60 seconds
+      messages: [
+        {
+          address: "0QAgPO0hPQ6bHODZnv6wMiEVWDBwfIBfT-q1uFl5k9RTz4p8",
+          amount: "1000"
+        }
+      ]
+    };
+    this.tonConnectUI?.sendTransaction(transaction).then((result) => {
+      console.log(result);
+      this.paymentStatus = 'success';
+    }).catch((error) => {
+      console.log(error);
+      this.paymentStatus = 'error';
+    });
   }
 }

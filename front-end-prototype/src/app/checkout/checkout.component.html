@@ -70,9 +70,12 @@
 	</mat-step>
 	<mat-step [completed]="isPaymentCompleted()" label="Pagamento" state="payment">
 		<div class="form-container">
+			<!-- Hide all the content if TON is connected -->
+			@if(!tonConnectUI?.connected) {
+			<!-- Show saved payments if there are any -->
 			@if (savedPayments().length > 0 && !createNewPayment()) {
 			<mat-form-field>
-				<mat-label>Indirizzo salvato</mat-label>
+				<mat-label>Metodo salvato</mat-label>
 				<mat-select [(ngModel)]="selectedPayment">
 					@for (payment of savedPayments(); track payment.id) {
 					<mat-option [value]="payment.id">
@@ -86,9 +89,11 @@
 			<div class="step-actions">
 				<button mat-button matStepperPrevious>Back</button>
 				<button mat-button (click)="createNewPayment.set(true)">Inserisci nuovo</button>
-				<button type="submit" mat-button matStepperNext [disabled]="selectedPayment == ''">Next</button>
+				<button type="submit" mat-button matStepperNext [disabled]="selectedPayment == ''"
+					(click)="sendPayment($event)">Next</button>
 			</div>
 			}
+			<!-- Show payment form if there are no saved payments -->
 			@if (savedPayments().length == 0 || createNewPayment()) {
 			<form [formGroup]="secondFormGroup" (ngSubmit)="onPaymentSubmit($event)">
 				<mat-form-field>
@@ -143,21 +148,34 @@
 				<mat-slide-toggle formControlName="save_card"> Salva questo metodo di pagamento </mat-slide-toggle>
 				<div class="step-actions">
 					<button mat-button matStepperPrevious>Back</button>
-					<button type="submit" mat-button [disabled]="secondFormGroup.invalid" matStepperNext>Next</button>
+					<button type="submit" mat-button [disabled]="secondFormGroup.invalid" matStepperNext
+						(click)="sendPayment($event)">Next</button>
 				</div>
 			</form>
 			}
-			<div>
-				<button mat-raised-button>
-					<mat-icon matTextPrefix>wallet</mat-icon>
-					Paga con il tuo wallet
-				</button>
-			</div>
+			}
+			<div id="ton-connect"></div>
+			<button type="submit" mat-button matStepperNext [hidden]="!tonConnectUI?.connected"
+				(click)="sendPayment($event)">Usa TON</button>
+			<!-- Button is hidden if TON is not connected -->
 		</div>
 	</mat-step>
 	<mat-step label="Ricevuta" state="receipt">
 		<div class="form-container">
+			@switch (paymentStatus) {
+			@case ('success') {
 			<p>You are now done.</p>
+			}
+			@case ('error') {
+			<p style="color: crimson;">There was an error with your payment.</p>
+			}
+			@case ('loading') {
+			<p>Loading...</p>
+			}
+			@default {
+			<p>Something went wrong.</p>
+			}
+			}
 			<div class="step-actions">
 				<button mat-button matStepperPrevious>Back</button>
 				<button mat-button (click)="stepper.reset()">Reset</button>
