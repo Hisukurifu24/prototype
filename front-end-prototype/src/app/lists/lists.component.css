@@ -1,0 +1,71 @@
+mat-list {
+	max-width: 400px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.clickable-item {
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.clickable-item:hover {
+	background-color: #f0f0f0;
+}
+
+.share-button {
+	display: inline;
+}
+
+.example-menu {
+	display: inline-flex;
+	flex-direction: column;
+	min-width: 180px;
+	max-width: 280px;
+	background-color: #F0FFFF;
+	padding: 6px 0;
+	border: 1px solid #ccc;
+	border-radius: 16px;
+}
+
+.example-menu-item {
+	background-color: transparent;
+	cursor: pointer;
+	border: none;
+	border-radius: 16px;
+
+	user-select: none;
+	min-width: 64px;
+	line-height: 45px;
+	padding: 0 16px;
+
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	flex: 1;
+	justify-content: flex-start;
+
+
+}
+
+.menu-icon {
+	margin-right: 8px;
+}
+
+.example-menu-item:hover {
+	background-color: rgb(208, 208, 208);
+}
+
+.example-menu-item:active {
+	background-color: rgb(170, 170, 170);
+}
+
+
+
+.fab-bottom-right {
+	position: fixed;
+	bottom: 74px;
+	right: 16px;
+	z-index: 1000;
+	/* Ensure it is above other elements */
+}

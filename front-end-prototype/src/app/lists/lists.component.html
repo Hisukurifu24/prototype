@@ -1,0 +1,38 @@
+<mat-list>
+	<h2 mat-header>My Lists</h2>
+	@if (lists().length === 0) {
+	<mat-list-item>
+		<p mat-line>No items found</p>
+	</mat-list-item>
+	}
+	@for (list of lists(); track list.id) {
+	<mat-list-item class="clickable-item" lines="3" [routerLink]="[list.id]" [cdkContextMenuTriggerFor]="context_menu">
+		<h4 matListItemTitle>
+			{{ list.name }}
+			<button class="share-button" mat-icon-button (click)="$event.stopPropagation(); share(list.id)">
+				<mat-icon>share</mat-icon>
+			</button>
+		</h4>
+		<span>{{ list.description }}</span>
+	</mat-list-item>
+	<ng-template #context_menu>
+		<div class="example-menu" cdkMenu>
+			<button class="example-menu-item" cdkMenuItem (click)="editList(list.id)">
+				<mat-icon class="menu-icon">edit</mat-icon>
+				<span>Edit</span>
+			</button>
+			<button class="example-menu-item" cdkMenuItem (click)="removeList(list.id)">
+				<mat-icon class="menu-icon mat-warn">delete</mat-icon>
+				<span class="mat-warn">Delete</span>
+			</button>
+		</div>
+	</ng-template>
+	}
+</mat-list>
+
+
+
+<button mat-fab extended class="fab-bottom-right" (click)="addList()">
+	<mat-icon>add</mat-icon>
+	New List
+</button>
