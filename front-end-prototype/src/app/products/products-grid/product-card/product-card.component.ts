@@ -1,11 +1,14 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
-import { Product } from '../product.model';
-import { CartService } from '../../cart/cart.service';
+
+import { CartService } from '../../../cart/cart.service';
+import { Product } from '../../product.model';
+
 
 @Component({
   selector: 'app-product-card',
