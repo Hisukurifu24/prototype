@@ -18,3 +18,21 @@ mat-form-field {
 	text-align: center;
 	margin: 20px;
 }
+
+/* Add this to your styles.css or relevant CSS file */
+@media (min-width: 768px) {
+	mat-card {
+		margin: 40px;
+		/* Increase margin on larger screens */
+		width: calc(33% - 40px);
+		/* Adjust width to fit three cards in a row */
+		display: inline-block;
+		/* Align cards next to each other */
+	}
+
+	.centered {
+		text-align: center;
+		margin: 40px 0;
+		/* Adjust vertical spacing */
+	}
+}
