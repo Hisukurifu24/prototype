@@ -115,7 +115,13 @@ export class ListsComponent {
     });
   }
 
-  share(arg0: string) {
-    throw new Error('Method not implemented.');
+  share(list: AmazingList) {
+    const url: string = `http://t.me/AmazingSynclabBot/amazing/lists/${list.id}`;
+
+    const text: string = 'Check out this list!\n' + JSON.stringify(list, null, 2);
+
+
+    const link: string = `https://t.me/share/url?url=${url}&text=${text}`;
+    WebApp.openTelegramLink(link);
   }
 }

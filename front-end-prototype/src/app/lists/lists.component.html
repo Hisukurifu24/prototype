@@ -9,7 +9,7 @@
 	<mat-list-item class="clickable-item" lines="3" [routerLink]="[list.id]" [cdkContextMenuTriggerFor]="context_menu">
 		<h4 matListItemTitle>
 			{{ list.name }}
-			<button class="share-button" mat-icon-button (click)="$event.stopPropagation(); share(list.id)">
+			<button class="share-button" mat-icon-button (click)="$event.stopPropagation(); share(list)">
 				<mat-icon>share</mat-icon>
 			</button>
 		</h4>
