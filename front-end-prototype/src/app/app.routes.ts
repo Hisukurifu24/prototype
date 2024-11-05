@@ -52,6 +52,16 @@ export const routes: Routes = [
 		title: 'Checkout'
 	},
 	{
+		path: 'lists',
+		loadComponent: () => import('./lists/lists.component').then(m => m.ListsComponent),
+		title: 'Lists'
+	},
+	{
+		path: 'lists/:id',
+		loadComponent: () => import('./lists/list/list.component').then(m => m.ListComponent),
+		title: 'List'
+	},
+	{
 		path: 'auth',
 		loadComponent: () => import('./auth/auth.component').then(m => m.AuthComponent),
 		title: 'Authentication'
