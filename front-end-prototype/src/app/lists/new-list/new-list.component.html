@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Create new list</h2>
+<mat-dialog-content class="dialog-content">
+	<mat-form-field class="full-width">
+		<mat-label>Name</mat-label>
+		<input matInput [(ngModel)]="name" />
+	</mat-form-field>
+	<mat-form-field class="full-width">
+		<mat-label>Description</mat-label>
+		<textarea matInput [(ngModel)]="description" maxlength="500" rows="3" cols="30"></textarea>
+	</mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+	<button mat-button (click)="onNoClick()">No Thanks</button>
+	<button mat-button color="primary" (click)="onOkClick()">Ok</button>
+</mat-dialog-actions>
