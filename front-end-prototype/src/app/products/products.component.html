@@ -8,21 +8,7 @@
 	All Products
 	}
 </h2>
-<mat-grid-list [cols]="cols()" rowHeight="6:10">
-	@for (p of products().slice(pageIndex()*pageSize(), (pageIndex()+1)*pageSize()); track p.id) {
-	@defer (on viewport) {
-	<mat-grid-tile>
-		<app-product-card [product]="p" />
-	</mat-grid-tile>
-	} @placeholder {
-	<mat-grid-tile>
-		<p>
-			{{ p.name }} - {{ p.price | currency: 'EUR' }}
-		</p>
-	</mat-grid-tile>
-	}
-	}
-</mat-grid-list>
+<app-products-grid [products]="products().slice(pageIndex()*pageSize(), (pageIndex()+1)*pageSize())" />
 
 <button mat-fab extended class="fab-bottom-right" (click)="addProduct()">
 	<mat-icon>add</mat-icon>
