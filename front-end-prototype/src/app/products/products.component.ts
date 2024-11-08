@@ -11,6 +11,7 @@ import { ProductsGridComponent } from "./products-grid/products-grid.component";
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import WebApp from '@twa-dev/sdk';
 
 @Component({
   selector: 'app-products',
@@ -47,6 +48,11 @@ export class ProductsComponent implements OnInit {
     }
 
     this.pageSize.set(parseInt(sessionStorage.getItem('pageSize') || '10'));
+  }
+
+  ngAfterViewInit(): void {
+    WebApp.ready();
+    WebApp.expand();
   }
 
   addProduct() {
