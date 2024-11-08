@@ -51,7 +51,6 @@ export class ProductsComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    WebApp.ready();
     WebApp.expand();
   }
 
