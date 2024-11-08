@@ -2,41 +2,25 @@
 <div class="welcome-message">
 	<h1>Ciao {{user.first_name}}</h1>
 </div>
-<mat-list>
-	<mat-divider></mat-divider>
-	<mat-list-item [routerLink]="['/profile-info']">
-		<mat-icon matListItemIcon> person </mat-icon>
-		Personal information
-	</mat-list-item>
-	<mat-divider></mat-divider>
-	<mat-list-item [routerLink]="['/orders']">
-		<mat-icon matListItemIcon> local_shipping </mat-icon>
-		Orders
-	</mat-list-item>
-	<mat-divider></mat-divider>
-	<mat-list-item [routerLink]="['/settings']">
-		<mat-icon matListItemIcon> settings </mat-icon>
-		Settings
-	</mat-list-item>
-</mat-list>
+
+<mat-accordion>
+	<mat-expansion-panel>
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				<mat-icon class="panel-icon">account_circle</mat-icon>
+				Profile
+			</mat-panel-title>
+		</mat-expansion-panel-header>
+		<p> Username: {{user.username}} </p>
+		<p> Nome: {{user.first_name}} {{user.last_name}} </p>
+		<p> User ID: {{user.id}} </p>
+	</mat-expansion-panel>
+</mat-accordion>
+
 } @else {
 <div class="welcome-message">
 	<h1>Benvenuto</h1>
-	<p>Per favore, effettua il login tramite telegram per accedere al tuo profilo</p>
+	<p>Per favore, accedi all'app tramite telegram per un'esperienza ottimizzata</p>
 </div>
-<mat-list>
-	<mat-divider></mat-divider>
-	<mat-list-item [routerLink]="['/settings']">
-		<mat-icon matListItemIcon> settings </mat-icon>
-		Settings
-	</mat-list-item>
-</mat-list>
 
 }
-<mat-list>
-	<mat-divider></mat-divider>
-	<mat-list-item [routerLink]="['/auth']">
-		<mat-icon matListItemIcon> auth </mat-icon>
-		Auth
-	</mat-list-item>
-</mat-list>
