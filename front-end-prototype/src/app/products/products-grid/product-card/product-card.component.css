@@ -7,10 +7,64 @@ mat-card-actions {
 	justify-content: space-between;
 }
 
+mat-card-content {
+	margin-top: 10px;
+
+}
+
+.title-container {
+	display: flex;
+	justify-content: space-between;
+}
+
 .example-card {
 	width: 100%;
 }
 
 .cart-button {
 	width: 100%;
+}
+
+
+.example-menu {
+	display: inline-flex;
+	flex-direction: column;
+	min-width: 180px;
+	max-width: 280px;
+	background-color: #F0FFFF;
+	padding: 6px 0;
+	border: 1px solid #ccc;
+	border-radius: 16px;
+}
+
+.example-menu-item {
+	background-color: transparent;
+	cursor: pointer;
+	border: none;
+	border-radius: 16px;
+
+	user-select: none;
+	min-width: 64px;
+	line-height: 45px;
+	padding: 0 16px;
+
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	flex: 1;
+	justify-content: flex-start;
+
+
+}
+
+.menu-icon {
+	margin-right: 8px;
+}
+
+.example-menu-item:hover {
+	background-color: rgb(208, 208, 208);
+}
+
+.example-menu-item:active {
+	background-color: rgb(170, 170, 170);
 }
