@@ -1,23 +1,36 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 
 import { AmazingList } from '../list.model';
+import { CartItem } from '../../cart/cart.model';
 
 import WebApp from '@twa-dev/sdk';
-import { ProductsGridComponent } from "../../products/products-grid/products-grid.component";
-import { Product } from '../../products/product.model';
+
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { ListsService } from '../lists.service';
+
 
 
 @Component({
   selector: 'app-list',
   standalone: true,
   imports: [
-    ProductsGridComponent
+    MatListModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule,
+    RouterLink,
   ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.css'
 })
 export class ListComponent {
+  private listsService = inject(ListsService);
+  private router = inject(Router);
+
   id = input<string>();
   list = signal<AmazingList | undefined>(undefined);
 
@@ -39,7 +52,11 @@ export class ListComponent {
     });
   }
 
-  getAllProducts(): Product[] {
-    return this.list()?.items.map(item => item.product) ?? [];
+  removeItem(item: CartItem) {
+    const confirm = window.confirm('Are you sure you want to remove this item from the list?');
+    if (confirm) {
+      this.listsService.removeItem(this.id()!, item);
+      window.location.reload();
+    }
   }
 }
