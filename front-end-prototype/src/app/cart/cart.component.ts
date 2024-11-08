@@ -23,6 +23,14 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
+  private cartService = inject(CartService)
+  private router = inject(Router)
+
+  items = computed(() => this.cartService.getItems())
+  total = computed(() => this.cartService.getTotalPrice())
+
+  itemTotal = (item: CartItem) => this.cartService.getProductTotalPrice(item.product)
+
   onAddOne(item: CartItem) {
     this.cartService.addItem(item.product);
   }
@@ -33,14 +41,6 @@ export class CartComponent {
       this.removeItem(item);
     }
   }
-  private cartService = inject(CartService)
-  private router = inject(Router)
-
-  items = computed(() => this.cartService.getItems())
-  total = computed(() => this.cartService.getTotalPrice())
-
-  itemTotal = (item: CartItem) => this.cartService.getProductTotalPrice(item.product)
-
   onCheckout() {
     if (this.total() > 0) {
       this.router.navigate(['/checkout']);
