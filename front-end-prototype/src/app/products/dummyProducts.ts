@@ -11,7 +11,7 @@ export const dummyProducts: Product[] = [
 		releaseDate: "2023-01-15",
 		available: true,
 		unitsInStock: 50,
-		imageUrl: "https://example.com/images/smartphone-x.jpg"
+		imageUrl: "https://smartphoneitalia.it/website/3967-home_default/apple-iphone-x-64gb-silver-grado-a-ricon.jpg"
 	},
 	{
 		id: 2,
@@ -23,7 +23,7 @@ export const dummyProducts: Product[] = [
 		releaseDate: "2022-11-20",
 		available: true,
 		unitsInStock: 200,
-		imageUrl: "https://example.com/images/wireless-headphones.jpg"
+		imageUrl: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MQTR3?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1687660671097"
 	},
 	{
 		id: 3,
@@ -35,7 +35,7 @@ export const dummyProducts: Product[] = [
 		releaseDate: "2023-03-10",
 		available: true,
 		unitsInStock: 30,
-		imageUrl: "https://example.com/images/laptop-pro.jpg"
+		imageUrl: "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW16lN4?ver=46fe&q=90&m=6&h=705&w=1253&b=%23FFFFFFFF&f=jpg&o=f&p=140&aim=true"
 	},
 	{
 		id: 4,
@@ -47,7 +47,7 @@ export const dummyProducts: Product[] = [
 		releaseDate: "2023-02-25",
 		available: true,
 		unitsInStock: 100,
-		imageUrl: "https://example.com/images/smartwatch-series-5.jpg"
+		imageUrl: "https://m.media-amazon.com/images/I/61ksrJ2LsgL._AC_UF894,1000_QL80_.jpg"
 	},
 	{
 		id: 5,
@@ -59,7 +59,7 @@ export const dummyProducts: Product[] = [
 		releaseDate: "2022-12-05",
 		available: true,
 		unitsInStock: 40,
-		imageUrl: "https://example.com/images/4k-tv.jpg"
+		imageUrl: "https://static1.unieuro.it/medias/sys_master/root/h1b/h96/45117201973278/-api-rest-00ed29448a7522f610cac04d7b9ea7e0-assets-adfd9151f42eadf77b078adb5a7eb4f5-preview-sgmConversionBaseFormat-sgmProductFormat.jpg"
 	},
 	{
 		id: 6,
