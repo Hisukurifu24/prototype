@@ -1,0 +1,21 @@
+<div class="list-header">
+	<h4 class="list-header-title">
+		{{ list()?.name }}
+	</h4>
+	<p class="list-header-description">
+		{{ list()?.description }}
+	</p>
+</div>
+
+<mat-list>
+	@for (item of list()?.items; track item.product) {
+	<mat-list-item [routerLink]="['/product',item.product.id]">
+		<mat-icon matListItemIcon (click)="$event.stopPropagation(); removeItem(item)">delete</mat-icon>
+		<span matListItemTitle> {{item.product.name}} </span>
+		<span matListItemLine>Prezzo: {{item.product.price}} </span>
+		<!-- <span matListItemLine>Ne vuole: {{item.quantity}} </span> -->
+	</mat-list-item>
+	<mat-divider></mat-divider>
+	}
+
+</mat-list>

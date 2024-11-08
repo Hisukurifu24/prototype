@@ -1,10 +1,27 @@
+.product-image {
+	width: 100%;
+	max-width: 300px;
+}
+
 mat-card {
+	width: 100%;
 	margin: 20px;
+}
+
+.product-image,
+mat-card {
+	max-width: 500px;
+}
+
+.card-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .fab-bottom-right {
 	position: fixed;
-	bottom: 64px;
+	bottom: 74px;
 	right: 16px;
 	z-index: 1000;
 	/* Ensure it is above other elements */
@@ -17,4 +34,12 @@ mat-form-field {
 .centered {
 	text-align: center;
 	margin: 20px;
+}
+
+@media (min-width: 680px) {
+
+	.product-image,
+	mat-card {
+		max-width: 300px;
+	}
 }

@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import WebApp from '@twa-dev/sdk';
 
 @Component({
   selector: 'app-cart',
@@ -23,6 +24,18 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
+  private cartService = inject(CartService)
+  private router = inject(Router)
+
+  items = computed(() => this.cartService.getItems())
+  total = computed(() => this.cartService.getTotalPrice())
+
+  itemTotal = (item: CartItem) => this.cartService.getProductTotalPrice(item.product)
+
+  constructor() {
+    WebApp.BackButton.hide();
+  }
+
   onAddOne(item: CartItem) {
     this.cartService.addItem(item.product);
   }
@@ -33,14 +46,6 @@ export class CartComponent {
       this.removeItem(item);
     }
   }
-  private cartService = inject(CartService)
-  private router = inject(Router)
-
-  items = computed(() => this.cartService.getItems())
-  total = computed(() => this.cartService.getTotalPrice())
-
-  itemTotal = (item: CartItem) => this.cartService.getProductTotalPrice(item.product)
-
   onCheckout() {
     if (this.total() > 0) {
       this.router.navigate(['/checkout']);
@@ -65,5 +70,11 @@ export class CartComponent {
     }
 
     this.cartService.setItem(item.product, +newValue);
+  }
+  onClear() {
+    const confirm = window.confirm('Are you sure you want to remove ALL items?');
+    if (confirm) {
+      this.cartService.clearCart();
+    }
   }
 }

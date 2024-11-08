@@ -1,0 +1,54 @@
+<mat-card class="example-card" appearance="outlined" [routerLink]="['/product',product().id]">
+	<img #productImage mat-card-image [src]="product().imageUrl" (error)="productImage.src='failed-loading.svg'"
+		alt="Product image">
+	<mat-card-content>
+		<div class="title-container">
+			<span mat-card-title>
+				{{product().name}}
+			</span>
+			<button mat-icon-button (click)="$event.stopPropagation()" [matMenuTriggerFor]="menu">
+				<mat-icon>more_vert</mat-icon>
+			</button>
+		</div>
+		<p>
+			<b>{{product().price | currency: 'EUR'}} </b>
+		</p>
+	</mat-card-content>
+
+	<mat-card-actions>
+		@if(getItemInCart(product()) === undefined) {
+		<button mat-flat-button extended class="cart-button" (click)="onAddToCart($event, product())">
+			<mat-icon>add_shopping_cart</mat-icon>
+			Add to cart
+		</button>
+		} @else {
+		<button mat-icon-button (click)="onRemoveFromCart($event, product())">
+			<mat-icon>remove</mat-icon>
+		</button>
+		{{getItemInCart(product())!.quantity}}
+		<button mat-icon-button (click)="onAddToCart($event, product())">
+			<mat-icon>add</mat-icon>
+		</button>
+		}
+	</mat-card-actions>
+</mat-card>
+
+<mat-menu #menu="matMenu">
+	<button mat-menu-item (click)="shareProduct(product())">
+		<mat-icon>share</mat-icon>
+		<span>Share</span>
+	</button>
+	<button mat-menu-item (click)="addToList(product())">
+		<mat-icon>bookmark_add</mat-icon>
+		<span>Add to list</span>
+	</button>
+	<mat-divider />
+	<button mat-menu-item [routerLink]="['/edit', product().id]">
+		<mat-icon>edit</mat-icon>
+		<span>Edit</span>
+	</button>
+	<button mat-menu-item (click)="removeProduct(product())">
+		<mat-icon class="mat-warn">delete</mat-icon>
+		<span class="mat-warn">Delete</span>
+	</button>
+</mat-menu>

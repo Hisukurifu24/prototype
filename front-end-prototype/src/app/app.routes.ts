@@ -42,6 +42,31 @@ export const routes: Routes = [
 		title: 'Cart'
 	},
 	{
+		path: 'profile',
+		loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),
+		title: 'Profile'
+	},
+	{
+		path: 'checkout',
+		loadComponent: () => import('./checkout/checkout.component').then(m => m.CheckoutComponent),
+		title: 'Checkout'
+	},
+	{
+		path: 'lists',
+		loadComponent: () => import('./lists/lists.component').then(m => m.ListsComponent),
+		title: 'Lists'
+	},
+	{
+		path: 'lists/:id',
+		loadComponent: () => import('./lists/list/list.component').then(m => m.ListComponent),
+		title: 'List'
+	},
+	{
+		path: 'auth',
+		loadComponent: () => import('./auth/auth.component').then(m => m.AuthComponent),
+		title: 'Authentication'
+	},
+	{
 		path: '**',
 		loadComponent: () => import('./error-404/error-404.component').then(m => m.Error404Component),
 		title: 'Error 404'

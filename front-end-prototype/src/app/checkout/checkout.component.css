@@ -1,0 +1,84 @@
+.mat-stepper-horizontal {
+	margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+	margin-top: 16px;
+}
+
+mat-form-field {
+	width: 100%;
+	max-width: 500px;
+	display: block;
+}
+
+mat-slide-toggle {
+	margin: 10px 0;
+	width: 100%;
+	max-width: 500px;
+	display: block;
+}
+
+.step-actions {
+	/* margin-top: auto; */
+	margin: 20px auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.form-container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	padding: 16px;
+}
+
+form {
+	width: 100%;
+	max-width: 600px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+@media (max-width: 600px) {
+	.form-container {
+		padding: 0;
+	}
+
+	form {
+		max-width: 100%;
+	}
+}
+
+.example-month-picker .mat-calendar-period-button {
+	pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+	display: none;
+}
+
+.date-input {
+	width: 100%;
+	max-width: 500px;
+	display: block;
+	margin-top: 16px;
+	padding: 16px;
+	background-color: #f5f5f5;
+	border-radius: 8px;
+}
+
+.inline-fields {
+	display: flex;
+	gap: 10px;
+	/* Adjust the gap as needed */
+	width: 100%;
+
+}
+
+.inline-fields mat-form-field {
+	flex: 1;
+}

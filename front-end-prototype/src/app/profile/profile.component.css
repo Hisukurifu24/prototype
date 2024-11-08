@@ -1,0 +1,17 @@
+.welcome-message {
+	text-align: center;
+	margin-top: 50px;
+	font-family: Arial, sans-serif;
+}
+
+.welcome-message h1 {
+	color: #2c3e50;
+}
+
+.welcome-message p {
+	color: #7f8c8d;
+}
+
+.panel-icon {
+	margin-right: 15px;
+}

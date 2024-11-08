@@ -1,18 +1,70 @@
-/* product.component.css */
-.product-image {
-	width: 100%;
-}
-
-mat-card,
-div {
+.product-container {
+	display: flex;
+	flex-direction: column;
 	margin: 20px;
 }
 
+.admin-commands {
+	text-align: center;
+	margin: 20px;
+	padding: 20px;
+}
 
-.fab-bottom-right {
-	position: fixed;
-	bottom: 64px;
-	right: 16px;
-	z-index: 1000;
-	/* Ensure it is above other elements */
+.admin-commands-actions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.image-container,
+.product-card {
+	width: 100%;
+}
+
+.image-container {
+	text-align: center;
+}
+
+.product-image {
+	margin: 20px 0;
+	width: 100%;
+	max-width: 400px;
+}
+
+.product-card {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.product-card-actions {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	margin-top: auto;
+}
+
+.secondary-actions {
+	flex-grow: 1;
+	margin: 0 10px;
+}
+
+.cart-button {
+	flex-grow: 1;
+}
+
+@media (min-width: 768px) {
+	.product-container {
+		flex-direction: row;
+	}
+
+	.image-container,
+	.product-card {
+		width: 50%;
+	}
+
+	.product-card {
+		margin: 20px;
+	}
 }

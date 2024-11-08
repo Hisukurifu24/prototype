@@ -1,0 +1,194 @@
+<mat-stepper linear="true" #stepper [orientation]="(stepperOrientation | async)!">
+	<mat-step [completed]="isDeliverCompleted()" state="deliver">
+		<div class="form-container">
+			@if (savedAddress().length > 0 && !createNewDeliver()) {
+			<mat-form-field>
+				<mat-label>Indirizzo salvato</mat-label>
+				<mat-select [(ngModel)]="selectedDeliver">
+					@for (deliver of savedAddress(); track deliver.id) {
+					<mat-option [value]="deliver.id">
+						{{ deliver.first_name }} {{ deliver.last_name }}, {{ deliver.address }}, {{ deliver.city }}, {{
+						deliver.zip_code }}, {{ deliver.country }}
+						<mat-icon (click)="deleteDeliver(deliver.id); $event.preventDefault()"
+							matSuffix>delete</mat-icon>
+					</mat-option>
+					}
+				</mat-select>
+			</mat-form-field>
+			<div class="step-actions">
+				<button mat-button (click)="createNewDeliver.set(true)">Inserisci nuovo</button>
+				<button type="submit" mat-button matStepperNext [disabled]="selectedDeliver == ''">Next</button>
+			</div>
+			}
+			@if (savedAddress().length == 0 || createNewDeliver()) {
+			<form [formGroup]="firstFormGroup" (ngSubmit)="onDeliverSubmit($event)">
+				<ng-template matStepLabel>Consegna</ng-template>
+				<mat-form-field>
+					<mat-label>Nome</mat-label>
+					<input matInput placeholder="Mario" formControlName="first_name" required>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Cognome</mat-label>
+					<input matInput placeholder="Rossi" formControlName="last_name" required>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Indirizzo</mat-label>
+					<input matInput placeholder="Via Roma 10" formControlName="address" required>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Comune</mat-label>
+					<input matInput placeholder="Roma" formControlName="city" required>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>CAP</mat-label>
+					<input type="number" matInput placeholder="12345" formControlName="zip_code" required>
+					@if (firstFormGroup.hasError('pattern') && !firstFormGroup.hasError('required')) {
+					<mat-error>Please enter a valid CAP</mat-error>
+					}
+					@if (firstFormGroup.hasError('required')) {
+					<mat-error>CAP is <strong>required</strong></mat-error>
+					}
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Stato</mat-label>
+					<input matInput placeholder="Italia" formControlName="country" required>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Cellulare</mat-label>
+					<input type="tel" matInput placeholder="333 11 22 444" formControlName="tel">
+					@if (firstFormGroup.hasError('pattern')) {
+					<mat-error>Please enter a valid number</mat-error>
+					}
+				</mat-form-field>
+				<mat-slide-toggle formControlName="save_address"> Salva questo indirizzo </mat-slide-toggle>
+				<div class="step-actions">
+					<button type="submit" mat-button matStepperNext [disabled]="firstFormGroup.invalid">Next</button>
+				</div>
+			</form>
+			}
+		</div>
+	</mat-step>
+	<mat-step [completed]="isPaymentCompleted()" label="Pagamento" state="payment">
+		<div class="form-container">
+			<!-- Hide all the content if TON is connected -->
+			@if(!tonConnectUI?.connected) {
+			<!-- Show saved payments if there are any -->
+			@if (savedPayments().length > 0 && !createNewPayment()) {
+			<mat-form-field>
+				<mat-label>Metodo salvato</mat-label>
+				<mat-select [(ngModel)]="selectedPayment">
+					@for (payment of savedPayments(); track payment.id) {
+					<mat-option [value]="payment.id">
+						{{ payment.name }}, {{ payment.cardNumber!.slice(0,4) }} **** **** ****
+						<mat-icon (click)="deletePayment(payment.id); $event.preventDefault()"
+							matSuffix>delete</mat-icon>
+					</mat-option>
+					}
+				</mat-select>
+			</mat-form-field>
+			<div class="step-actions">
+				<button mat-button matStepperPrevious>Back</button>
+				<button mat-button (click)="createNewPayment.set(true)">Inserisci nuovo</button>
+				<button type="submit" mat-button matStepperNext [disabled]="selectedPayment == ''"
+					(click)="sendPayment($event)">Next</button>
+			</div>
+			}
+			<!-- Show payment form if there are no saved payments -->
+			@if (savedPayments().length == 0 || createNewPayment()) {
+			<form [formGroup]="secondFormGroup" (ngSubmit)="onPaymentSubmit($event)">
+				<mat-form-field>
+					<mat-label>Nome intestatario</mat-label>
+					<input matInput formControlName="full_name" placeholder="Mario Rossi" required>
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Numero carta</mat-label>
+					<input type="text" matInput formControlName="number" placeholder="1111 2222 3333 4444" required>
+					@if (firstFormGroup.hasError('pattern') && !firstFormGroup.hasError('required')) {
+					<mat-error>Please enter a valid number</mat-error>
+					}
+					@if (firstFormGroup.hasError('required')) {
+					<mat-error>Number is <strong>required</strong></mat-error>
+					}
+				</mat-form-field>
+				<div class="date-input">
+					<mat-label>Scadenza Carta</mat-label>
+					<div class="inline-fields">
+						<mat-form-field>
+							<mat-label>Mese</mat-label>
+							<input type="text" matInput formControlName="exp_month" placeholder="MM" required>
+							@if (firstFormGroup.hasError('pattern') && !firstFormGroup.hasError('required')) {
+							<mat-error>Please enter a valid month</mat-error>
+							}
+							@if (firstFormGroup.hasError('required')) {
+							<mat-error>Month is <strong>required</strong></mat-error>
+							}
+						</mat-form-field>
+						<mat-form-field>
+							<mat-label>Anno</mat-label>
+							<input type="text" matInput formControlName="exp_year" placeholder="YYYY" required>
+							@if (firstFormGroup.hasError('pattern') && !firstFormGroup.hasError('required')) {
+							<mat-error>Please enter a valid year</mat-error>
+							}
+							@if (firstFormGroup.hasError('required')) {
+							<mat-error>Year is <strong>required</strong></mat-error>
+							}
+						</mat-form-field>
+					</div>
+				</div>
+				<mat-form-field>
+					<mat-label>CVV</mat-label>
+					<input type="text" matInput formControlName="cvv" placeholder="111" required>
+					@if (firstFormGroup.hasError('pattern') && !firstFormGroup.hasError('required')) {
+					<mat-error>Please enter a valid cvv</mat-error>
+					}
+					@if (firstFormGroup.hasError('required')) {
+					<mat-error>CVV is <strong>required</strong></mat-error>
+					}
+				</mat-form-field>
+				<mat-slide-toggle formControlName="save_card"> Salva questo metodo di pagamento </mat-slide-toggle>
+				<div class="step-actions">
+					<button mat-button matStepperPrevious>Back</button>
+					<button type="submit" mat-button [disabled]="secondFormGroup.invalid" matStepperNext
+						(click)="sendPayment($event)">Next</button>
+				</div>
+			</form>
+			}
+			}
+			<div id="ton-connect"></div>
+			<button type="submit" mat-button matStepperNext [hidden]="!tonConnectUI?.connected"
+				(click)="sendPayment($event)">Usa TON</button>
+			<!-- Button is hidden if TON is not connected -->
+		</div>
+	</mat-step>
+	<mat-step label="Ricevuta" state="receipt">
+		<div class="form-container">
+			@switch (paymentStatus) {
+			@case ('success') {
+			<p>You are now done.</p>
+			}
+			@case ('error') {
+			<p style="color: crimson;">There was an error with your payment.</p>
+			}
+			@case ('loading') {
+			<p>Loading...</p>
+			}
+			@default {
+			<p>Something went wrong.</p>
+			}
+			}
+			<div class="step-actions">
+				<button mat-button matStepperPrevious>Back</button>
+				<button mat-button (click)="stepper.reset()">Reset</button>
+			</div>
+		</div>
+	</mat-step>
+	<ng-template matStepperIcon="deliver">
+		<mat-icon>local_shipping</mat-icon>
+	</ng-template>
+	<ng-template matStepperIcon="payment">
+		<mat-icon>credit_card</mat-icon>
+	</ng-template>
+	<ng-template matStepperIcon="receipt">
+		<mat-icon>receipt_long</mat-icon>
+	</ng-template>
+</mat-stepper>

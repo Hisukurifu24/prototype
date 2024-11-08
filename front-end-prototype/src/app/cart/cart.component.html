@@ -1,74 +1,53 @@
-<!-- <div class="cart-page">
-	<h1>Shopping Cart</h1>
-
-	<table class="cart-items">
-		<thead>
-			<tr>
-				<th>Item Name</th>
-				<th>Quantity</th>
-				<th>Price</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			@for (item of items(); track item.product.id) {
-			<tr class="cart-item">
-				<td>{{item.product.name}}</td>
-				<td>
-					<input type="number" [value]="item.quantity" min="1" (click)="onValueChange($event, item)">
-				</td>
-				<td>{{itemTotal(item) | currency:"EUR"}}</td>
-				<td>
-					<button (click)="removeItem(item)">Remove</button>
-				</td>
-			</tr>
-			}
-		</tbody>
-	</table>
-
-	<div class="cart-summary">
-		<h2>Total: <span id="total-price"> {{total() | currency:"EUR"}} </span></h2>
-		<button routerLink="/checkout">Checkout</button>
-	</div>
-</div> -->
-
+@if (items().length >0) {
+<div class="centered">
+	<button mat-button class="mat-warn" (click)="onClear()">
+		<mat-icon>clear</mat-icon>
+		<span>Clear</span>
+	</button>
+</div>
+}
 <h4 class="centered">
 	Totale provvisorio: <br />
 	<b> {{total() | currency:"EUR"}} </b>
 </h4>
-@if (items().length >0) {
-@for (item of items(); track item.product.id) {
-<mat-card [routerLink]="['/product',item.product.id]">
-	<mat-card-header>
-		<mat-card-title>{{item.product.name}}</mat-card-title>
-		<mat-card-subtitle>{{itemTotal(item) | currency:"EUR"}}</mat-card-subtitle>
-	</mat-card-header>
-	<img mat-card-image src="failed-loading.svg">
-	<mat-card-content>
-		<mat-form-field>
-			<button mat-icon-button matPrefix (click)="$event.stopPropagation(); onRemoveOne(item)">
-				@if (item.quantity > 1) {
-				<mat-icon>remove</mat-icon>
-				} @else {
-				<mat-icon class="mat-warn">remove_shopping_cart</mat-icon>
-				}
-			</button>
-			<mat-label>Quantity</mat-label>
-			<input matInput type="number" [value]="item.quantity" min="1" (click)="$event.stopPropagation()"
-				(change)="onValueChange($event, item)">
-			<button mat-icon-button matSuffix (click)="$event.stopPropagation(); onAddOne(item)">
-				<mat-icon>add</mat-icon>
-			</button>
-		</mat-form-field>
-	</mat-card-content>
-	<mat-card-actions>
-		<button mat-button class="mat-warn" (click)="$event.stopPropagation(); removeItem(item);">Remove</button>
-	</mat-card-actions>
-</mat-card>
-}
-} @else {
-<p class="centered">Your cart is empty</p>
-}
+<div class="card-container">
+	@if (items().length > 0) {
+	@for (item of items(); track item.product.id) {
+	<mat-card [routerLink]="['/product',item.product.id]">
+		<mat-card-header>
+			<mat-card-title>{{item.product.name}}</mat-card-title>
+			<mat-card-subtitle>{{itemTotal(item) | currency:"EUR"}}</mat-card-subtitle>
+		</mat-card-header>
+		<img class="product-image" #productImage mat-card-image [src]="item.product.imageUrl"
+			(error)="productImage.src='failed-loading.svg'">
+		<mat-card-content>
+			<mat-form-field>
+				<button mat-icon-button matPrefix (click)="$event.stopPropagation(); onRemoveOne(item)">
+					@if (item.quantity > 1) {
+					<mat-icon>remove</mat-icon>
+					} @else {
+					<mat-icon class="mat-warn">remove_shopping_cart</mat-icon>
+					}
+				</button>
+				<mat-label>Quantity</mat-label>
+				<input matInput type="number" [value]="item.quantity" min="1" (click)="$event.stopPropagation()"
+					(change)="onValueChange($event, item)">
+				<button mat-icon-button matSuffix (click)="$event.stopPropagation(); onAddOne(item)">
+					<mat-icon>add</mat-icon>
+				</button>
+			</mat-form-field>
+		</mat-card-content>
+		@if (item.quantity > 1) {
+		<mat-card-actions>
+			<button mat-button class="mat-warn" (click)="$event.stopPropagation(); removeItem(item);">Remove</button>
+		</mat-card-actions>
+		}
+	</mat-card>
+	}
+	} @else {
+	<p class="centered">Your cart is empty</p>
+	}
+</div>
 
 
 <button mat-fab extended class="fab-bottom-right" (click)="$event.stopPropagation(); onCheckout()">

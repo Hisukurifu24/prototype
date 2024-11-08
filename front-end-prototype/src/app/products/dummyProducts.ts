@@ -11,7 +11,7 @@ export const dummyProducts: Product[] = [
 		releaseDate: "2023-01-15",
 		available: true,
 		unitsInStock: 50,
-		imageUrl: "https://example.com/images/smartphone-x.jpg"
+		imageUrl: "https://smartphoneitalia.it/website/3967-home_default/apple-iphone-x-64gb-silver-grado-a-ricon.jpg"
 	},
 	{
 		id: 2,
@@ -23,31 +23,31 @@ export const dummyProducts: Product[] = [
 		releaseDate: "2022-11-20",
 		available: true,
 		unitsInStock: 200,
-		imageUrl: "https://example.com/images/wireless-headphones.jpg"
+		imageUrl: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MQTR3?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1687660671097"
 	},
 	{
 		id: 3,
-		name: "Gaming Laptop",
-		description: "A powerful laptop for gaming and productivity.",
-		brand: "GameBrand",
+		name: "Laptop Pro",
+		description: "A powerful laptop for professionals.",
+		brand: "ComputeBrand",
 		price: 1499.99,
 		category: "Computers",
 		releaseDate: "2023-03-10",
-		available: false,
-		unitsInStock: 0,
-		imageUrl: "https://example.com/images/gaming-laptop.jpg"
+		available: true,
+		unitsInStock: 30,
+		imageUrl: "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW16lN4?ver=46fe&q=90&m=6&h=705&w=1253&b=%23FFFFFFFF&f=jpg&o=f&p=140&aim=true"
 	},
 	{
 		id: 4,
-		name: "Smartwatch Pro",
-		description: "A smartwatch with fitness tracking and notifications.",
+		name: "Smartwatch Series 5",
+		description: "A smartwatch with health tracking features.",
 		brand: "WearBrand",
 		price: 299.99,
 		category: "Wearables",
-		releaseDate: "2022-09-05",
+		releaseDate: "2023-02-25",
 		available: true,
-		unitsInStock: 120,
-		imageUrl: "https://example.com/images/smartwatch-pro.jpg"
+		unitsInStock: 100,
+		imageUrl: "https://m.media-amazon.com/images/I/61ksrJ2LsgL._AC_UF894,1000_QL80_.jpg"
 	},
 	{
 		id: 5,
@@ -55,10 +55,190 @@ export const dummyProducts: Product[] = [
 		description: "A 55-inch 4K Ultra HD television.",
 		brand: "ViewBrand",
 		price: 799.99,
-		category: "Home Entertainment",
-		releaseDate: "2023-02-25",
+		category: "Electronics",
+		releaseDate: "2022-12-05",
 		available: true,
-		unitsInStock: 30,
-		imageUrl: "https://example.com/images/4k-tv.jpg"
+		unitsInStock: 40,
+		imageUrl: "https://static1.unieuro.it/medias/sys_master/root/h1b/h96/45117201973278/-api-rest-00ed29448a7522f610cac04d7b9ea7e0-assets-adfd9151f42eadf77b078adb5a7eb4f5-preview-sgmConversionBaseFormat-sgmProductFormat.jpg"
+	},
+	{
+		id: 6,
+		name: "Bluetooth Speaker",
+		description: "A portable Bluetooth speaker with high-quality sound.",
+		brand: "SoundBrand",
+		price: 99.99,
+		category: "Audio",
+		releaseDate: "2023-01-20",
+		available: true,
+		unitsInStock: 150,
+		imageUrl: "https://example.com/images/bluetooth-speaker.jpg"
+	},
+	{
+		id: 7,
+		name: "Gaming Console",
+		description: "A next-gen gaming console with stunning graphics.",
+		brand: "GameBrand",
+		price: 499.99,
+		category: "Gaming",
+		releaseDate: "2022-11-15",
+		available: true,
+		unitsInStock: 60,
+		imageUrl: "https://example.com/images/gaming-console.jpg"
+	},
+	{
+		id: 8,
+		name: "Digital Camera",
+		description: "A high-resolution digital camera for photography enthusiasts.",
+		brand: "PhotoBrand",
+		price: 599.99,
+		category: "Cameras",
+		releaseDate: "2023-02-10",
+		available: true,
+		unitsInStock: 80,
+		imageUrl: "https://example.com/images/digital-camera.jpg"
+	},
+	{
+		id: 9,
+		name: "Tablet Pro",
+		description: "A versatile tablet for work and play.",
+		brand: "TechBrand",
+		price: 699.99,
+		category: "Tablets",
+		releaseDate: "2023-03-01",
+		available: true,
+		unitsInStock: 70,
+		imageUrl: "https://example.com/images/tablet-pro.jpg"
+	},
+	{
+		id: 10,
+		name: "Smart Home Hub",
+		description: "A hub to control all your smart home devices.",
+		brand: "HomeBrand",
+		price: 129.99,
+		category: "Smart Home",
+		releaseDate: "2022-12-20",
+		available: true,
+		unitsInStock: 90,
+		imageUrl: "https://example.com/images/smart-home-hub.jpg"
+	},
+	{
+		id: 11,
+		name: "Fitness Tracker",
+		description: "A fitness tracker with heart rate monitoring.",
+		brand: "FitBrand",
+		price: 79.99,
+		category: "Wearables",
+		releaseDate: "2023-04-10",
+		available: true,
+		unitsInStock: 120,
+		imageUrl: "https://example.com/images/fitness-tracker.jpg"
+	},
+	{
+		id: 12,
+		name: "Electric Kettle",
+		description: "A fast-boiling electric kettle with temperature control.",
+		brand: "KitchenBrand",
+		price: 49.99,
+		category: "Home Appliances",
+		releaseDate: "2023-02-15",
+		available: true,
+		unitsInStock: 200,
+		imageUrl: "https://example.com/images/electric-kettle.jpg"
+	},
+	{
+		id: 13,
+		name: "Robot Vacuum",
+		description: "A smart robot vacuum cleaner with app control.",
+		brand: "CleanBrand",
+		price: 299.99,
+		category: "Home Appliances",
+		releaseDate: "2023-01-25",
+		available: true,
+		unitsInStock: 80,
+		imageUrl: "https://example.com/images/robot-vacuum.jpg"
+	},
+	{
+		id: 14,
+		name: "Wireless Charger",
+		description: "A fast wireless charger for smartphones.",
+		brand: "ChargeBrand",
+		price: 29.99,
+		category: "Accessories",
+		releaseDate: "2023-03-05",
+		available: true,
+		unitsInStock: 150,
+		imageUrl: "https://example.com/images/wireless-charger.jpg"
+	},
+	{
+		id: 15,
+		name: "Smart Light Bulb",
+		description: "A smart light bulb with color-changing features.",
+		brand: "LightBrand",
+		price: 19.99,
+		category: "Smart Home",
+		releaseDate: "2023-02-10",
+		available: true,
+		unitsInStock: 300,
+		imageUrl: "https://example.com/images/smart-light-bulb.jpg"
+	},
+	{
+		id: 16,
+		name: "Portable Power Bank",
+		description: "A high-capacity portable power bank.",
+		brand: "PowerBrand",
+		price: 39.99,
+		category: "Accessories",
+		releaseDate: "2023-01-30",
+		available: true,
+		unitsInStock: 250,
+		imageUrl: "https://example.com/images/portable-power-bank.jpg"
+	},
+	{
+		id: 17,
+		name: "Smart Thermostat",
+		description: "A smart thermostat for home temperature control.",
+		brand: "HomeBrand",
+		price: 149.99,
+		category: "Smart Home",
+		releaseDate: "2023-03-20",
+		available: true,
+		unitsInStock: 100,
+		imageUrl: "https://example.com/images/smart-thermostat.jpg"
+	},
+	{
+		id: 18,
+		name: "Noise-Cancelling Earbuds",
+		description: "Wireless noise-cancelling earbuds.",
+		brand: "SoundBrand",
+		price: 129.99,
+		category: "Audio",
+		releaseDate: "2023-02-28",
+		available: true,
+		unitsInStock: 180,
+		imageUrl: "https://example.com/images/noise-cancelling-earbuds.jpg"
+	},
+	{
+		id: 19,
+		name: "Smart Doorbell",
+		description: "A smart doorbell with video and audio features.",
+		brand: "HomeBrand",
+		price: 99.99,
+		category: "Smart Home",
+		releaseDate: "2023-01-15",
+		available: true,
+		unitsInStock: 140,
+		imageUrl: "https://example.com/images/smart-doorbell.jpg"
+	},
+	{
+		id: 20,
+		name: "Electric Toothbrush",
+		description: "An electric toothbrush with multiple brushing modes.",
+		brand: "HealthBrand",
+		price: 59.99,
+		category: "Personal Care",
+		releaseDate: "2023-03-10",
+		available: true,
+		unitsInStock: 220,
+		imageUrl: "https://example.com/images/electric-toothbrush.jpg"
 	}
 ];

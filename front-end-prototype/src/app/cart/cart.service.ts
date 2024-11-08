@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 import { Product } from '../products/product.model';
 import { CartItem } from './cart.model';
 
@@ -8,7 +8,27 @@ import { CartItem } from './cart.model';
 export class CartService {
   private items = signal<CartItem[]>([]);
 
-  constructor() { }
+  constructor() {
+
+    const cart = sessionStorage.getItem('cart');
+    console.log(cart);
+    if (cart) {
+      this.retrieveItems();
+    }
+    effect(() => {
+      if (cart && cart.length < 1) {
+        return;
+      }
+      sessionStorage.setItem('cart', JSON.stringify(this.items()));
+    });
+  }
+
+  private retrieveItems() {
+    const cart = sessionStorage.getItem('cart');
+    if (cart) {
+      this.items.set(JSON.parse(cart));
+    }
+  }
 
   /**
    * Get a product from the cart

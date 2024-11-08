@@ -5,7 +5,16 @@
 	position: fixed;
 	bottom: 0;
 	width: 100%;
+	height: 56px;
 	z-index: 1000;
+}
+
+/* Add this media query for iPhones */
+@media screen and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait),
+screen and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape) {
+	.bottom-toolbar {
+		height: 66px;
+	}
 }
 
 .spacer {
