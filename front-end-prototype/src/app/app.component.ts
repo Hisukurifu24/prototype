@@ -15,8 +15,4 @@ import WebApp from '@twa-dev/sdk';
 })
 export class AppComponent {
   title = 'front-end-prototype';
-
-  constructor() {
-    WebApp.ready();
-  }
 }

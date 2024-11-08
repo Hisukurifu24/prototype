@@ -1,5 +1,22 @@
+.product-image {
+	width: 100%;
+	max-width: 300px;
+}
+
 mat-card {
+	width: 100%;
 	margin: 20px;
+}
+
+.product-image,
+mat-card {
+	max-width: 500px;
+}
+
+.card-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 
 .fab-bottom-right {
@@ -19,20 +36,10 @@ mat-form-field {
 	margin: 20px;
 }
 
-/* Add this to your styles.css or relevant CSS file */
-@media (min-width: 768px) {
-	mat-card {
-		margin: 40px;
-		/* Increase margin on larger screens */
-		width: calc(33% - 40px);
-		/* Adjust width to fit three cards in a row */
-		display: inline-block;
-		/* Align cards next to each other */
-	}
+@media (min-width: 680px) {
 
-	.centered {
-		text-align: center;
-		margin: 40px 0;
-		/* Adjust vertical spacing */
+	.product-image,
+	mat-card {
+		max-width: 300px;
 	}
 }

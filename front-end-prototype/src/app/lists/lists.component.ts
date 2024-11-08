@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CdkContextMenuTrigger, CdkMenu, CdkMenuItem } from '@angular/cdk/menu';
 
 import { ListsService } from './lists.service';
+import WebApp from '@twa-dev/sdk';
 
 
 @Component({
@@ -26,6 +27,10 @@ import { ListsService } from './lists.service';
 })
 export class ListsComponent {
   private listsService = inject(ListsService);
+
+  constructor() {
+    WebApp.BackButton.hide();
+  }
 
   get lists() {
     return this.listsService.lists();

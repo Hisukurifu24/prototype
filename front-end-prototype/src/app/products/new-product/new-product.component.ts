@@ -56,18 +56,13 @@ export class NewProductComponent implements OnInit {
     if (this.isUpdate()) {
       const p = this.service.getProduct(this.id());
 
-      console.log(p);
-      // Convert releaseDate from dd-MM-yyyy to yyyy-MM-dd
-      const [day, month, year] = p.releaseDate.split('-');
-      const formattedDate = `${year}-${month}-${day}`;
-
       this.productForm.patchValue({
         name: p.name,
         brand: p.brand,
         category: p.category,
         description: p.description,
         price: p.price,
-        releaseDate: formattedDate,
+        releaseDate: p.releaseDate,
         available: p.available,
         unitsInStock: p.unitsInStock,
       });

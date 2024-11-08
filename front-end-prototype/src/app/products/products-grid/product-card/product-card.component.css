@@ -1,5 +1,7 @@
 img {
 	width: 100%;
+	aspect-ratio: 1;
+	object-fit: contain;
 }
 
 mat-card-actions {
@@ -18,7 +20,7 @@ mat-card-content {
 }
 
 .example-card {
-	width: 100%;
+	width: 90%;
 }
 
 .cart-button {

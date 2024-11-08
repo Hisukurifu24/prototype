@@ -1,5 +1,6 @@
 <mat-card class="example-card" appearance="outlined" [routerLink]="['/product',product().id]">
-	<img mat-card-image [src]="'failed-loading.svg'" alt="Product image">
+	<img #productImage mat-card-image [src]="product().imageUrl" (error)="productImage.src='failed-loading.svg'"
+		alt="Product image">
 	<mat-card-content>
 		<div class="title-container">
 			<span mat-card-title>

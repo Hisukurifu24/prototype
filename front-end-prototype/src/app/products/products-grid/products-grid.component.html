@@ -2,7 +2,7 @@
 	@for (p of products(); track p.id) {
 	@defer (on viewport) {
 	<mat-grid-tile>
-		<app-product-card [product]="p" />
+		<app-product-card class="card" [product]="p" />
 	</mat-grid-tile>
 	} @placeholder {
 	<mat-grid-tile>

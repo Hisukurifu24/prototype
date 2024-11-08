@@ -1,5 +1,8 @@
 <div class="product-container">
-	<img src="failed-loading.svg" alt="Product Image" class="product-image">
+	<div class="image-container">
+		<img #productImage [src]="product().imageUrl" (error)="productImage.src='failed-loading.svg'"
+			alt="Product Image" class="product-image">
+	</div>
 	<mat-card class="product-card">
 		<div>
 			<h2>

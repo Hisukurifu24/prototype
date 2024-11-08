@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,7 +16,6 @@ import WebApp from '@twa-dev/sdk';
     MatIconModule,
     MatButtonModule,
     MatExpansionModule,
-    RouterLink,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
@@ -26,6 +24,6 @@ export class ProfileComponent {
   user = WebApp.initDataUnsafe.user;
 
   constructor() {
-    console.log('User:', this.user);
+    WebApp.BackButton.hide();
   }
 }

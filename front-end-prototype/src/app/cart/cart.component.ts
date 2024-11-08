@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import WebApp from '@twa-dev/sdk';
 
 @Component({
   selector: 'app-cart',
@@ -30,6 +31,10 @@ export class CartComponent {
   total = computed(() => this.cartService.getTotalPrice())
 
   itemTotal = (item: CartItem) => this.cartService.getProductTotalPrice(item.product)
+
+  constructor() {
+    WebApp.BackButton.hide();
+  }
 
   onAddOne(item: CartItem) {
     this.cartService.addItem(item.product);

@@ -1,19 +1,16 @@
-import { effect, inject, Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 import { Product } from './product.model';
 import { dummyProducts } from './dummyProducts';
 import WebApp from '@twa-dev/sdk';
 
-import { MatDialog } from '@angular/material/dialog';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  private addListDialog = inject(MatDialog);
   private allProducts = signal<Product[]>(dummyProducts);
 
   constructor() {
-    this.allProducts.set(dummyProducts);
     this.loadProducts();
 
     effect(() => {
@@ -36,11 +33,13 @@ export class ProductsService {
     }
   }
   addProduct(p: Product, image: File) {
-    this.allProducts().push(p);
+    this.allProducts.set([...this.allProducts(), p]);
   }
   updateProduct(p: Product, image: File) {
     const index = this.allProducts().findIndex(pr => pr.id == p.id);
-    this.allProducts()[index] = p;
+    if (index != -1) {
+      this.allProducts.set([...this.allProducts().slice(0, index), p, ...this.allProducts().slice(index + 1)]);
+    }
   }
   searchProducts(search: string): Product[] {
     const keyword = search.toLowerCase();
@@ -54,7 +53,14 @@ export class ProductsService {
   loadProducts() {
     const products = localStorage.getItem('products');
     if (products) {
-      this.allProducts.set(JSON.parse(products));
+      const parsedProducts: Product[] = JSON.parse(products);
+      for (const product of parsedProducts) {
+        // Check if product already exists to avoid duplicates
+        if (!this.allProducts().find(p => p.id == product.id)) {
+          // If not, add it
+          this.allProducts.set([...this.allProducts(), product]);
+        }
+      }
     }
   }
   saveProducts() {
