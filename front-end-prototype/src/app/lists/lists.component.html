@@ -1,11 +1,11 @@
 <mat-list>
 	<h2 mat-header>My Lists</h2>
-	@if (lists().length === 0) {
+	@if (lists.length === 0) {
 	<mat-list-item>
 		<p mat-line>No items found</p>
 	</mat-list-item>
 	}
-	@for (list of lists(); track list.id) {
+	@for (list of lists; track list.id) {
 	<mat-list-item class="clickable-item" lines="3" [routerLink]="[list.id]" [cdkContextMenuTriggerFor]="context_menu">
 		<h4 matListItemTitle>
 			{{ list.name }}
