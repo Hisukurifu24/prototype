@@ -39,6 +39,11 @@
 	margin-top: auto;
 }
 
+.secondary-actions {
+	flex-grow: 1;
+	margin: 0 10px;
+}
+
 .cart-button {
 	flex-grow: 1;
 }

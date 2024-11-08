@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import WebApp from '@twa-dev/sdk';
+import { ListsService } from '../../lists/lists.service';
 
 @Component({
   selector: 'app-product',
@@ -41,8 +42,9 @@ export class ProductComponent {
 
   private router = inject(Router);
   private title = inject(Title);
-  private service = inject(ProductsService);
+  private productsService = inject(ProductsService);
   private cartService = inject(CartService);
+  private listsService = inject(ListsService);
 
   ngOnInit(): void {
     WebApp.BackButton.show();
@@ -57,7 +59,7 @@ export class ProductComponent {
   getProduct() {
     console.log('Product ID: ', this.id());
 
-    this.product.set(this.service.getProduct(this.id()));
+    this.product.set(this.productsService.getProduct(this.id()));
 
     console.log('Product: ', this.product());
 
@@ -69,7 +71,7 @@ export class ProductComponent {
     if (!reply) {
       return;
     } else {
-      const result = this.service.deleteProduct(p);
+      const result = this.productsService.deleteProduct(p);
       if (result) {
         console.log('Product deleted: ', p);
         this.delete.emit();
@@ -96,5 +98,11 @@ export class ProductComponent {
   onRemoveFromCart(event: MouseEvent, product: Product) {
     event.stopPropagation();
     this.cartService.removeOne(product);
+  }
+  share(arg0: Product) {
+    this.productsService.shareProduct(arg0);
+  }
+  addToList(arg0: Product) {
+    this.listsService.addToList(arg0);
   }
 }
