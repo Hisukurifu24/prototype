@@ -14,6 +14,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 export interface DialogData {
+  name: string;
+  description: string;
 }
 
 
@@ -38,6 +40,11 @@ export class NewListComponent {
   readonly data = inject<DialogData>(MAT_DIALOG_DATA);
   name: string = '';
   description: string = '';
+
+  constructor() {
+    this.name = this.data.name;
+    this.description = this.data.description
+  }
 
 
   onOkClick(): any {
