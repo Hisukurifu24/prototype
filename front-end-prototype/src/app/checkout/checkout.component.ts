@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AsyncPipe } from '@angular/common';
+import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
@@ -51,6 +52,7 @@ import * as TonConnectUI from '@tonconnect/ui'
 })
 export class CheckoutComponent {
   private _formBuilder = inject(FormBuilder);
+  private router = inject(Router);
 
   selectedDeliver: string = '';
   selectedPayment: string = '';
@@ -112,6 +114,12 @@ export class CheckoutComponent {
       this.savedPayments.set(JSON.parse(res ?? ''));
     });
 
+    WebApp.BackButton.show();
+    WebApp.BackButton.onClick(() => {
+      this.router.navigate(['/cart']);
+      WebApp.BackButton.hide();
+    });
+
   }
 
   ngAfterViewInit(): void {
@@ -133,7 +141,6 @@ export class CheckoutComponent {
         if (walletAndwalletInfo) {
           this.isWalletConnected = (true);
           console.log('isWalletConnected', this.isWalletConnected);
-
         }
       }
     );
