@@ -61,15 +61,25 @@ export class ListsService {
   }
 
   removeList(id: string) {
-    if (!confirm('Are you sure you want to delete this list?')) {
-      return;
-    }
-    this.lists.set(this.lists().filter((item) => item.id !== id));
-    WebApp.CloudStorage.setItem('lists', JSON.stringify(this.lists()), (err) => {
-      if (err) {
-        console.error(err);
+    WebApp.showConfirm('Are you sure you want to delete this list?', (confirm) => {
+      if (confirm) {
+        this.lists.set(this.lists().filter((item) => item.id !== id));
+        WebApp.CloudStorage.setItem('lists', JSON.stringify(this.lists()), (err) => {
+          if (err) {
+            console.error(err);
+          }
+        });
       }
     });
+    // if (!confirm('Are you sure you want to delete this list?')) {
+    //   return;
+    // }
+    // this.lists.set(this.lists().filter((item) => item.id !== id));
+    // WebApp.CloudStorage.setItem('lists', JSON.stringify(this.lists()), (err) => {
+    //   if (err) {
+    //     console.error(err);
+    //   }
+    // });
   }
 
   addList() {

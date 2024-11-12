@@ -241,62 +241,118 @@ export class CheckoutComponent {
   }
 
   deleteDeliver(id: number) {
-    const confirm = window.confirm('Are you sure you want to delete this address?');
-    if (confirm) {
-      let currentUserAddress: Deliver[] = [];
+    WebApp.showConfirm('Are you sure you want to delete this address?', (confirm) => {
+      if (confirm) {
+        let currentUserAddress: Deliver[] = [];
 
-      // Get the current user address
-      WebApp.CloudStorage.getItem('address', (err, res) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        // Parse the current user address
-        currentUserAddress = JSON.parse(res ?? '');
-
-        // Filter out the address with the given id
-        currentUserAddress = currentUserAddress.filter((address) => address.id !== id);
-
-        // Save the updated address
-        WebApp.CloudStorage.setItem('address', JSON.stringify(currentUserAddress), (err, res) => {
+        // Get the current user address
+        WebApp.CloudStorage.getItem('address', (err, res) => {
           if (err) {
             console.error(err);
             return;
           }
-          window.location.reload();
-        });
+          // Parse the current user address
+          currentUserAddress = JSON.parse(res ?? '');
+
+          // Filter out the address with the given id
+          currentUserAddress = currentUserAddress.filter((address) => address.id !== id);
+
+          // Save the updated address
+          WebApp.CloudStorage.setItem('address', JSON.stringify(currentUserAddress), (err, res) => {
+            if (err) {
+              console.error(err);
+              return;
+            }
+            window.location.reload();
+          });
+        }
+        );
       }
-      );
-    }
+    });
+    // const confirm = window.confirm('Are you sure you want to delete this address?');
+    // if (confirm) {
+    //   let currentUserAddress: Deliver[] = [];
+
+    //   // Get the current user address
+    //   WebApp.CloudStorage.getItem('address', (err, res) => {
+    //     if (err) {
+    //       console.error(err);
+    //       return;
+    //     }
+    //     // Parse the current user address
+    //     currentUserAddress = JSON.parse(res ?? '');
+
+    //     // Filter out the address with the given id
+    //     currentUserAddress = currentUserAddress.filter((address) => address.id !== id);
+
+    //     // Save the updated address
+    //     WebApp.CloudStorage.setItem('address', JSON.stringify(currentUserAddress), (err, res) => {
+    //       if (err) {
+    //         console.error(err);
+    //         return;
+    //       }
+    //       window.location.reload();
+    //     });
+    //   }
+    //   );
+    // }
   }
   deletePayment(id: number) {
-    const confirm = window.confirm('Are you sure you want to delete this payment method?');
-    if (confirm) {
-      let savedPaymentsMethods: Payment[] = [];
+    WebApp.showConfirm('Are you sure you want to delete this payment method?', (confirm) => {
+      if (confirm) {
+        let savedPaymentsMethods: Payment[] = [];
 
-      // Get the current user address
-      WebApp.CloudStorage.getItem('payments', (err, res) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        // Parse the current user address
-        savedPaymentsMethods = JSON.parse(res ?? '');
-
-        // Filter out the address with the given id
-        savedPaymentsMethods = savedPaymentsMethods.filter((payment) => payment.id !== id);
-
-        // Save the updated address
-        WebApp.CloudStorage.setItem('payments', JSON.stringify(savedPaymentsMethods), (err, res) => {
+        // Get the current user address
+        WebApp.CloudStorage.getItem('payments', (err, res) => {
           if (err) {
             console.error(err);
             return;
           }
-          window.location.reload();
-        });
+          // Parse the current user address
+          savedPaymentsMethods = JSON.parse(res ?? '');
+
+          // Filter out the address with the given id
+          savedPaymentsMethods = savedPaymentsMethods.filter((payment) => payment.id !== id);
+
+          // Save the updated address
+          WebApp.CloudStorage.setItem('payments', JSON.stringify(savedPaymentsMethods), (err, res) => {
+            if (err) {
+              console.error(err);
+              return;
+            }
+            window.location.reload();
+          });
+        }
+        );
       }
-      );
-    }
+    });
+    // const confirm = window.confirm('Are you sure you want to delete this payment method?');
+    // if (confirm) {
+    //   let savedPaymentsMethods: Payment[] = [];
+
+    //   // Get the current user address
+    //   WebApp.CloudStorage.getItem('payments', (err, res) => {
+    //     if (err) {
+    //       console.error(err);
+    //       return;
+    //     }
+    //     // Parse the current user address
+    //     savedPaymentsMethods = JSON.parse(res ?? '');
+
+    //     // Filter out the address with the given id
+    //     savedPaymentsMethods = savedPaymentsMethods.filter((payment) => payment.id !== id);
+
+    //     // Save the updated address
+    //     WebApp.CloudStorage.setItem('payments', JSON.stringify(savedPaymentsMethods), (err, res) => {
+    //       if (err) {
+    //         console.error(err);
+    //         return;
+    //       }
+    //       window.location.reload();
+    //     });
+    //   }
+    //   );
+    // }
   }
   sendPayment($event: any) {
     const transaction = {

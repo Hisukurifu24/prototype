@@ -55,10 +55,15 @@ export class CartComponent {
     }
   }
   removeItem(item: CartItem) {
-    const confirm = window.confirm('Are you sure you want to remove this item?');
-    if (confirm) {
-      this.cartService.removeItem(item.product);
-    }
+    WebApp.showConfirm('Are you sure you want to remove this item from the cart?', (confirm) => {
+      if (confirm) {
+        this.cartService.removeItem(item.product);
+      }
+    });
+    // const confirm = window.confirm('Are you sure you want to remove this item?');
+    // if (confirm) {
+    //   this.cartService.removeItem(item.product);
+    // }
   }
   onValueChange($event: Event, item: CartItem) {
     const newValue = ($event.target as HTMLInputElement).value;
@@ -72,9 +77,14 @@ export class CartComponent {
     this.cartService.setItem(item.product, +newValue);
   }
   onClear() {
-    const confirm = window.confirm('Are you sure you want to remove ALL items?');
-    if (confirm) {
-      this.cartService.clearCart();
-    }
+    WebApp.showConfirm('Are you sure you want to remove ALL items from the cart?', (confirm) => {
+      if (confirm) {
+        this.cartService.clearCart();
+      }
+    });
+    // const confirm = window.confirm('Are you sure you want to remove ALL items?');
+    // if (confirm) {
+    //   this.cartService.clearCart();
+    // }
   }
 }

@@ -67,19 +67,31 @@ export class ProductComponent {
   }
 
   deleteProduct(p: Product) {
-    const reply = confirm('Are you sure you want to delete this product?');
-    if (!reply) {
-      return;
-    } else {
-      const result = this.productsService.deleteProduct(p);
-      if (result) {
-        console.log('Product deleted: ', p);
-        this.delete.emit();
-        this.router.navigate(['/']);
-      } else {
-        console.error('Error deleting product: ', p);
+    WebApp.showConfirm('Are you sure you want to delete this product?', (confirm) => {
+      if (confirm) {
+        const result = this.productsService.deleteProduct(p);
+        if (result) {
+          console.log('Product deleted: ', p);
+          this.delete.emit();
+          this.router.navigate(['/']);
+        } else {
+          console.error('Error deleting product: ', p);
+        }
       }
-    }
+    });
+    // const reply = confirm('Are you sure you want to delete this product?');
+    // if (!reply) {
+    //   return;
+    // } else {
+    //   const result = this.productsService.deleteProduct(p);
+    //   if (result) {
+    //     console.log('Product deleted: ', p);
+    //     this.delete.emit();
+    //     this.router.navigate(['/']);
+    //   } else {
+    //     console.error('Error deleting product: ', p);
+    //   }
+    // }
 
   }
   editProduct(p: Product) {

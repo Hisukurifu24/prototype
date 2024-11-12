@@ -53,10 +53,16 @@ export class ListComponent {
   }
 
   removeItem(item: CartItem) {
-    const confirm = window.confirm('Are you sure you want to remove this item from the list?');
-    if (confirm) {
-      this.listsService.removeItem(this.id()!, item);
-      window.location.reload();
-    }
+    WebApp.showConfirm('Are you sure you want to remove this item from the list?', (confirm) => {
+      if (confirm) {
+        this.listsService.removeItem(this.id()!, item);
+        window.location.reload();
+      }
+    });
+    // const confirm = window.confirm('Are you sure you want to remove this item from the list?');
+    // if (confirm) {
+    //   this.listsService.removeItem(this.id()!, item);
+    //   window.location.reload();
+    // }
   }
 }

@@ -12,6 +12,7 @@ import { Product } from '../../product.model';
 import { ProductsService } from '../../products.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { ListsService } from '../../../lists/lists.service';
+import WebApp from '@twa-dev/sdk';
 
 
 @Component({
@@ -41,8 +42,13 @@ export class ProductCardComponent {
     this.listsService.addToList(arg0);
   }
   removeProduct(arg0: Product) {
-    if (!confirm('Are you sure you want to delete this product?')) return;
-    this.productService.deleteProduct(arg0);
+    WebApp.showConfirm('Are you sure you want to delete this product?', (confirm) => {
+      if (confirm) {
+        this.productService.deleteProduct(arg0);
+      }
+    });
+    // if (!confirm('Are you sure you want to delete this product?')) return;
+    // this.productService.deleteProduct(arg0);
   }
   shareProduct(arg0: Product) {
     this.productService.shareProduct(arg0);
