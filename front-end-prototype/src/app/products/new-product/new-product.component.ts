@@ -1,5 +1,5 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductsService } from '../products.service';
 import { Product } from '../product.model';
 import { Router } from '@angular/router';
@@ -92,14 +92,12 @@ export class NewProductComponent implements OnInit {
     // Convert releaseDate from yyyy-MM-dd to dd-MM-yyyy
     // p.releaseDate = p.releaseDate.split('-').reverse().join('-');
 
-
-
     if (this.productForm.valid) {
       if (this.isUpdate()) {
         p.id = this.id();
         this.service.updateProduct(p, image);
       } else {
-        p.id = this.service.getProducts().length + 1;
+        p.id = Date.now();
         console.log(p);
 
         this.service.addProduct(p, image);
