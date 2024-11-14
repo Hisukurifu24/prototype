@@ -2,8 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { ProductsService } from '../../products/products.service';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../products/product.model';
-import { CurrencyPipe } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -13,8 +12,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [FormsModule,
-    CurrencyPipe,
+  imports: [
+    FormsModule,
     MatFormFieldModule,
     MatLabel,
     MatButtonModule,
@@ -28,7 +27,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 export class SearchComponent {
   private productsService = inject(ProductsService);
   private router = inject(Router);
-  private activatedRoute = inject(ActivatedRoute);
 
   searchQuery = signal('');
   searchResults = signal<Product[]>([]);

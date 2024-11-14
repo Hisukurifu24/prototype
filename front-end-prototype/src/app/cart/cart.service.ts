@@ -9,16 +9,18 @@ export class CartService {
   private items = signal<CartItem[]>([]);
 
   constructor() {
-
     const cart = sessionStorage.getItem('cart');
     console.log(cart);
     if (cart) {
       this.retrieveItems();
     }
+    // Save the cart to sessionStorage whenever it changes
     effect(() => {
+      // Don't save an empty cart
       if (cart && cart.length < 1) {
         return;
       }
+      // Save the cart to sessionStorage
       sessionStorage.setItem('cart', JSON.stringify(this.items()));
     });
   }
@@ -58,7 +60,7 @@ export class CartService {
       item.quantity += quantity;
       this.items.set([...this.items()]);
     } else {
-      this.items.set([...this.items(), { product, quantity: 1 }]);
+      this.items.set([...this.items(), { product, quantity: quantity }]);
     }
   }
 

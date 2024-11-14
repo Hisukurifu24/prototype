@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule, MatSelectionList } from '@angular/material/list';
 import { ListsService } from '../lists.service';
 import { MatButtonModule } from '@angular/material/button';
+import { AmazingList } from '../list.model';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class AddToListComponent {
 
   @ViewChild('lists') lists!: MatSelectionList;
 
-  get allLists() {
+  get allLists(): AmazingList[] {
     return this.listsService.lists();
   }
   confirm() {

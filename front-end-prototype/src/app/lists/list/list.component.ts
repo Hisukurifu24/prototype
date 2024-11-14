@@ -34,7 +34,7 @@ export class ListComponent {
   id = input<string>();
   list = signal<AmazingList | undefined>(undefined);
 
-  constructor() {
+  ngOnInit() {
     WebApp.CloudStorage.getItem("lists", (err, res) => {
       if (err) {
         console.error(err);
@@ -56,7 +56,7 @@ export class ListComponent {
     WebApp.showConfirm('Are you sure you want to remove this item from the list?', (confirm) => {
       if (confirm) {
         this.listsService.removeItem(this.id()!, item);
-        window.location.reload();
+        this.reloadPage();
       }
     });
     // const confirm = window.confirm('Are you sure you want to remove this item from the list?');
@@ -64,5 +64,9 @@ export class ListComponent {
     //   this.listsService.removeItem(this.id()!, item);
     //   window.location.reload();
     // }
+  }
+
+  reloadPage() {
+    window.location.reload();
   }
 }

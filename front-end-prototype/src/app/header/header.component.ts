@@ -12,12 +12,10 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
   standalone: true,
   imports: [
     RouterLink,
-    SearchComponent,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatLabel,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'

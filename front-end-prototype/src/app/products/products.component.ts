@@ -1,26 +1,20 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
 
 import { ProductsService } from './products.service';
-import { ProductComponent } from "./product/product.component";
 import { Product } from './product.model';
-import { NewProductComponent } from "./new-product/new-product.component";
 import { ProductsGridComponent } from "./products-grid/products-grid.component";
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+
 import WebApp from '@twa-dev/sdk';
-import { iif } from 'rxjs';
 
 @Component({
   selector: 'app-products',
   standalone: true,
   imports: [
-    ProductComponent,
-    NewProductComponent,
-    CurrencyPipe,
     MatButtonModule,
     MatIconModule,
     MatPaginatorModule,
