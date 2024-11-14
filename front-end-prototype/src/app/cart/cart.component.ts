@@ -51,7 +51,7 @@ export class CartComponent {
       this.router.navigate(['/checkout']);
     }
     else {
-      alert('Cart is empty!');
+      WebApp.showAlert('Your cart is empty');
     }
   }
   removeItem(item: CartItem) {
@@ -70,7 +70,7 @@ export class CartComponent {
 
     if (+newValue < 1) {
       $event.preventDefault();
-      alert('Quantity must be greater than 0');
+      WebApp.showAlert('Quantity must be at least 1');
       return;
     }
 

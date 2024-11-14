@@ -104,12 +104,12 @@ describe('CartComponent', () => {
 	});
 
 	it('should alert when onCheckout is called and cart total is 0', () => {
-		spyOn(window, 'alert');
+		spyOn(WebApp, 'showAlert');
 		mockCartService.getTotalPrice.and.returnValue(0);
 
 		component.onCheckout();
 
-		expect(window.alert).toHaveBeenCalledWith('Cart is empty!');
+		expect(WebApp.showAlert).toHaveBeenCalledWith('Your cart is empty');
 	});
 
 	it('should call removeItem when removeItem is triggered', () => {
@@ -140,7 +140,7 @@ describe('CartComponent', () => {
 			preventDefault: jasmine.createSpy('preventDefault') // Mock preventDefault method
 		} as unknown as InputEvent; // Type the event as InputEvent
 
-		spyOn(window, 'alert'); // Spy on alert
+		spyOn(WebApp, 'showAlert'); // Spy on alert
 
 		// Call the onValueChange method
 		component.onValueChange(event, mockItem);
@@ -149,7 +149,7 @@ describe('CartComponent', () => {
 		expect(event.preventDefault).toHaveBeenCalled();
 
 		// Check if the correct alert message was shown
-		expect(window.alert).toHaveBeenCalledWith('Quantity must be greater than 0');
+		expect(WebApp.showAlert).toHaveBeenCalledWith('Quantity must be at least 1');
 	});
 
 	it('should call clearCart when onClear is triggered', () => {
