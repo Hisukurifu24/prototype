@@ -1,6 +1,6 @@
 import { Component, inject, input, output, signal } from '@angular/core';
 import { Product } from '../product.model';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { ProductsService } from '../products.service';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -16,6 +16,7 @@ import { ListsService } from '../../lists/lists.service';
   standalone: true,
   imports: [
     CurrencyPipe,
+    DatePipe,
     MatButtonModule,
     MatIcon,
     MatCardModule

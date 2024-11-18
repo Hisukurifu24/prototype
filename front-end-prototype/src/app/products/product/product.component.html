@@ -15,12 +15,34 @@
 				{{product().brand}}
 			</h5>
 			<p>
+				@if (product().available) {
+				@if (product().unitsInStock < 10) { <span class="mat-warn">
+					Availability: just {{product().unitsInStock}}
+					</span>
+					}
+					@else {
+					<span>
+						Availability: {{product().unitsInStock}}
+					</span>
+					}
+					}
+					@else {
+					<span class="mat-warn">
+						Not available
+					</span>
+					}
+			</p>
+			<p>
 				{{product().description}}
+			</p>
+			<p>
+				Release date: {{product().releaseDate | date:'mediumDate'}}
 			</p>
 		</div>
 		<mat-card-actions class="product-card-actions">
 			@if(getItemInCart(product()) === undefined) {
-			<button mat-flat-button extended class="cart-button" (click)="onAddToCart($event, product())">
+			<button mat-flat-button extended class="cart-button" (click)="onAddToCart($event, product())"
+				[disabled]="!product().available">
 				<mat-icon>add_shopping_cart</mat-icon>
 				Add to cart
 			</button>
