@@ -73,6 +73,12 @@ export class CartComponent {
       WebApp.showAlert('Quantity must be at least 1');
       return;
     }
+    if (+newValue > item.product.unitsInStock) {
+      $event.preventDefault();
+      ($event.target as HTMLInputElement).value = item.product.unitsInStock.toString();
+      WebApp.showAlert('You have reached the maximum quantity of this product in stock');
+      return;
+    }
 
     this.cartService.setItem(item.product, +newValue);
   }

@@ -1,6 +1,7 @@
 import { effect, Injectable, signal } from '@angular/core';
 import { Product } from '../products/product.model';
 import { CartItem } from './cart.model';
+import WebApp from '@twa-dev/sdk';
 
 @Injectable({
   providedIn: 'root'
@@ -57,9 +58,19 @@ export class CartService {
   addItem(product: Product, quantity: number = 1) {
     const item = this.getItem(product);
     if (item) {
+      // Check if the quantity is greater than the units in stock
+      if (item.quantity + quantity > item.product.unitsInStock) {
+        this.alertMaxReached();
+        return;
+      }
       item.quantity += quantity;
       this.items.set([...this.items()]);
     } else {
+      // Check if the quantity is greater than the units in stock
+      if (quantity > product.unitsInStock) {
+        this.alertMaxReached();
+        return;
+      }
       this.items.set([...this.items(), { product, quantity: quantity }]);
     }
   }
@@ -70,6 +81,11 @@ export class CartService {
    * @param quantity quantity to set for the product
    */
   setItem(product: Product, quantity: number) {
+    // Check if the quantity is greater than the units in stock
+    if (quantity > product.unitsInStock) {
+      this.alertMaxReached();
+      return;
+    }
     const item = this.getItem(product);
     if (item) {
       item.quantity = quantity;
@@ -77,6 +93,10 @@ export class CartService {
     } else {
       this.items.set([...this.items(), { product, quantity }]);
     }
+  }
+
+  alertMaxReached() {
+    WebApp.showAlert('You have reached the maximum quantity of this product in stock');
   }
 
   /**
